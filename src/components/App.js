@@ -1,19 +1,21 @@
 import React from "react";
-import Card from "./Card";
+import { Router, Route, Switch, Link } from "react-router-dom";
+import MainPage from "./MainPage";
 import Catalog from "./Catalog";
-import { connect } from "react-redux";
 
-const App = ({ cards }) => (
-  <div>
-    {cards.map(label => (
-      <Card label={label} key={label} />
-    ))}
-    <Catalog />
-  </div>
+import history from "../history";
+
+const App = () => (
+  <Router history={history}>
+    <nav className="navigation__nav">
+      <Link to="/">На главную</Link>
+      <Link to="/catalog">Каталог приложений</Link>
+    </nav>
+    <Switch>
+      <Route path="/" exact component={MainPage} />
+      <Route path="/catalog" exact component={Catalog} />
+    </Switch>
+  </Router>
 );
 
-const mapStateToProps = state => ({
-  cards: state.item
-});
-
-export default connect(mapStateToProps)(App);
+export default App;
