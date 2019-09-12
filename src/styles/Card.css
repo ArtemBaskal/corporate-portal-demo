@@ -88,6 +88,12 @@ body {
   border-radius: 2rem;
 }
 
+.card__info {
+  font-size: 2rem;
+  /* position: absolute; */
+  /* bottom: -5rem; */
+}
+
 .navigation__nav {
   border: none;
   color: var(--color-grey-light-1);

@@ -3,28 +3,52 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import Card from "./Card";
 import { handleDeleteFromSelected } from "../actions";
+import { handlePinInSelected } from "../actions";
 import "../styles/Card.css";
 
-const MainPage = ({ cards, handleDeleteFromSelected }) => (
+const MainPage = ({
+  cards,
+  accessRights,
+  handleDeleteFromSelected,
+  handlePinInSelected
+}) => (
   <div className="card-container">
-    {cards.map((label, i) => (
+    {Object.values(cards).map((card, i) => (
       <Card
-        label={label}
-        key={label}
-        handleDelete={() => {
-          let isEssential = false;
+        label={card.label}
+        key={card.label}
+        isSelected={card.isSelected}
+        isPinned={card.isPinned}
+        handleDelete={e => {
+          e.stopPropagation();
+          // let isEssential = false;
           const reallyDelete = window.confirm(
-            `Вы действительно хотите удалить ${label} из закреплённых приложений?`
+            `Вы действительно хотите удалить ${card.label} из закреплённых приложений?`
           );
-          if (i === 0) isEssential = true;
+          // if (i === 0) isEssential = true;
           //TEST
-          if (isEssential && reallyDelete === true) {
+          if (accessRights !== "Admin" && card.isPinned && reallyDelete) {
             alert(
-              `Недостаточно прав для удаления закреплённого приложения "${label}"`
+              `Недостаточно прав для удаления закреплённого приложения "${card.label}"`
             );
             //TODO: если нельзя удалить, то сразу писать об этом
-          } else if (!isEssential && reallyDelete)
-            return handleDeleteFromSelected(label);
+          } else if (
+            (!card.isPinned && reallyDelete) ||
+            (card.isPinned && accessRights == "Admin")
+          )
+            handleDeleteFromSelected(card.label);
+        }}
+        handleSelect={() => {
+          const reallyMakePinned =
+            accessRights === "Admin"
+              ? window.confirm(
+                  `Хотите ли вы сделать приложение ${card.label} обязательным для пользователей?`
+                )
+              : false;
+
+          if (reallyMakePinned) {
+            handlePinInSelected(card.label);
+          }
         }}
       />
     ))}
@@ -32,10 +56,11 @@ const MainPage = ({ cards, handleDeleteFromSelected }) => (
 );
 
 const mapStateToProps = state => ({
+  accessRights: state.accessRights,
   cards: state.item
 });
 
 export default connect(
   mapStateToProps,
-  { handleDeleteFromSelected }
+  { handleDeleteFromSelected, handlePinInSelected }
 )(MainPage);

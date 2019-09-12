@@ -10,8 +10,7 @@ const AccessControl = ({ handleAccessRightsChange, accessRights }) => (
       id="access"
       onChange={e => {
         alert(`Вы теперь ${e.target.value}`);
-        console.log(e.target.value);
-        handleAccessRightsChange(e.target.value);
+        return handleAccessRightsChange(e.target.value);
       }}
     >
       <option value="User">User</option>

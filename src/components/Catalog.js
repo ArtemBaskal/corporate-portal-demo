@@ -1,38 +1,59 @@
 import React from "react";
 import Card from "./Card";
-import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { handleSelectFromCatalog } from "../actions";
 import { handleDeleteFromCatalog } from "../actions";
+import { handlePinInSelected } from "../actions";
 
 const Catalog = ({
   catalog,
   accessRights,
+  cards,
   handleSelectFromCatalog,
-  handleDeleteFromCatalog
+  handleDeleteFromCatalog,
+  handlePinInSelected
 }) => (
   <div className="card-container">
-    {catalog.map(label => {
-      let isSelected = false;
+    {Object.values(catalog).map(card => {
+      console.log(cards[card.label] && cards[card.label].isPinned);
+
+      // let isSelected = false;
       return (
         <Card
-          label={label}
-          key={label}
-          // isSelected={isSelected}
+          label={card.label}
+          key={card.label}
+          //isSelected={isSelected}
           handleSelect={() => {
             const reallySelect = window.confirm(
-              `Вы действительно хотите добавить ${label} в закреплённые приложений?`
+              `Вы действительно хотите добавить ${card.label} в закреплённые приложений?`
             );
-            if (reallySelect /* && !isSelected */) {
-              // isSelected = true;
-              return handleSelectFromCatalog(label);
+
+            let reallyMakePinned;
+            if (accessRights === "Admin" && cards[card.label]) {
+              if (cards[card.label].isPinned) {
+                reallyMakePinned = window.confirm(
+                  `Хотите ли вы сделать приложение ${card.label} обязательным для пользователей?`
+                );
+              } /* else if (!cards[card.label].isPinned) {
+                reallyMakePinned = window.confirm(
+                  `Хотите ли вы сделать приложение ${card.label} необязательным для пользователей?`
+                );
+              } */
+            }
+
+            if (reallyMakePinned) {
+              handlePinInSelected(card.label);
+            }
+
+            if (reallySelect) {
+              handleSelectFromCatalog(card.label);
               //TODO: Нельзя выбирать уже выбранные приложения
             }
           }}
           handleDelete={e => {
             e.stopPropagation();
             const reallyDelete = window.confirm(
-              `Вы действительно хотите удалить ${label} из каталога?`
+              `Вы действительно хотите удалить ${card.label} из каталога?`
             );
 
             if (accessRights !== "Admin") {
@@ -41,7 +62,7 @@ const Catalog = ({
               );
             }
             if (reallyDelete && accessRights === "Admin") {
-              return handleDeleteFromCatalog(label);
+              return handleDeleteFromCatalog(card.label);
             }
           }}
         />
@@ -52,10 +73,11 @@ const Catalog = ({
 
 const mapStateToProps = state => ({
   catalog: state.catalog,
-  accessRights: state.accessRights
+  accessRights: state.accessRights,
+  cards: state.item
 });
 
 export default connect(
   mapStateToProps,
-  { handleSelectFromCatalog, handleDeleteFromCatalog }
+  { handleSelectFromCatalog, handleDeleteFromCatalog, handlePinInSelected }
 )(Catalog);
