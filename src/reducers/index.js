@@ -1,8 +1,10 @@
 import { combineReducers } from "redux";
-import itemsReducer from "./itemsReducer";
+import selectedItemsReducer from "./selectedItemsReducer";
 import catalogReducer from "./catalogReducer";
+import accessRightsReducer from "./accessRightsReducer";
 
 export default combineReducers({
-  item: itemsReducer,
-  catalog: catalogReducer
+  item: selectedItemsReducer,
+  catalog: catalogReducer,
+  accessRights: accessRightsReducer
 });

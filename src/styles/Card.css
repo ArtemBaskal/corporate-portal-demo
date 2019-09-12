@@ -39,12 +39,12 @@ body {
   font-weight: 300;
   line-height: 1.6;
 }
-
 .card-container {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  width: 95vw;
+  justify-content: flex-start;
+  width: 100%;
 }
 
 .card {
@@ -56,10 +56,36 @@ body {
   justify-content: center;
   align-items: center;
   border: 1px solid var(--color-grey-dark-1);
-  border-radius: 15%;
+  border-radius: 10%;
   margin: 2rem;
-  font-size: 8rem;
+  font-size: 5rem;
   cursor: pointer;
+  position: relative;
+}
+
+.card__title {
+  position: absolute;
+  bottom: -4rem;
+  font-size: 3rem;
+  color: var(--color-primary-light);
+}
+
+.card__cross {
+  display: none;
+}
+
+.card:hover .card__cross {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  right: -1.6rem;
+  top: -1.2rem;
+  font-size: 2rem;
+  border: 1px solid black;
+  height: 3rem;
+  width: 3rem;
+  border-radius: 2rem;
 }
 
 .navigation__nav {

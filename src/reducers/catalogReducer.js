@@ -1,25 +1,15 @@
-const INITAL_STATE = [
-  16,
-  17,
-  18,
-  19,
-  20,
-  21,
-  22,
-  23,
-  24,
-  25,
-  26,
-  27,
-  28,
-  29,
-  30,
-  31,
-  32,
-  33
-];
+import { DELETE_FROM_CATALOG } from "../actions/types";
+
+const INITAL_STATE = Array(35)
+  .fill(35)
+  .map((el, i) => (el = i));
 
 export default (state = INITAL_STATE, action) => {
   // console.log(action);
-  return state;
+  switch (action.type) {
+    case DELETE_FROM_CATALOG:
+      return state.filter(el => el !== action.payload);
+    default:
+      return state;
+  }
 };

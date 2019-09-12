@@ -3,8 +3,14 @@ import Card from "./Card";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { handleSelectFromCatalog } from "../actions";
+import { handleDeleteFromCatalog } from "../actions";
 
-const Catalog = ({ catalog, handleSelectFromCatalog }) => (
+const Catalog = ({
+  catalog,
+  accessRights,
+  handleSelectFromCatalog,
+  handleDeleteFromCatalog
+}) => (
   <div className="card-container">
     {catalog.map(label => {
       let isSelected = false;
@@ -12,8 +18,8 @@ const Catalog = ({ catalog, handleSelectFromCatalog }) => (
         <Card
           label={label}
           key={label}
-          isSelected={isSelected}
-          handleClick={() => {
+          // isSelected={isSelected}
+          handleSelect={() => {
             const reallySelect = window.confirm(
               `Вы действительно хотите добавить ${label} в закреплённые приложений?`
             );
@@ -23,6 +29,21 @@ const Catalog = ({ catalog, handleSelectFromCatalog }) => (
               //TODO: Нельзя выбирать уже выбранные приложения
             }
           }}
+          handleDelete={e => {
+            e.stopPropagation();
+            const reallyDelete = window.confirm(
+              `Вы действительно хотите удалить ${label} из каталога?`
+            );
+
+            if (accessRights !== "Admin") {
+              alert(
+                `Недостаточно прав доступа ${accessRights} для удаления приложения из каталога!`
+              );
+            }
+            if (reallyDelete && accessRights === "Admin") {
+              return handleDeleteFromCatalog(label);
+            }
+          }}
         />
       );
     })}
@@ -30,10 +51,11 @@ const Catalog = ({ catalog, handleSelectFromCatalog }) => (
 );
 
 const mapStateToProps = state => ({
-  catalog: state.catalog
+  catalog: state.catalog,
+  accessRights: state.accessRights
 });
 
 export default connect(
   mapStateToProps,
-  { handleSelectFromCatalog }
+  { handleSelectFromCatalog, handleDeleteFromCatalog }
 )(Catalog);

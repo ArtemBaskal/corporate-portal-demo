@@ -11,7 +11,7 @@ const MainPage = ({ cards, handleDeleteFromSelected }) => (
       <Card
         label={label}
         key={label}
-        handleClick={() => {
+        handleDelete={() => {
           let isEssential = false;
           const reallyDelete = window.confirm(
             `Вы действительно хотите удалить ${label} из закреплённых приложений?`
