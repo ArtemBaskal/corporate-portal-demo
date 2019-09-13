@@ -34,9 +34,9 @@ export const handleDeleteFromCatalog = data => {
   };
 };
 
-export const handlePinInSelected = data => {
+export const handlePinInSelected = (data, accessRights) => {
   return {
     type: PIN_IN_SELECTED,
-    payload: data
+    payload: { data, accessRights }
   };
 };

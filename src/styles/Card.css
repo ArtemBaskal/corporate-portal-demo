@@ -92,7 +92,7 @@ body {
   height: 3rem;
   width: 3rem;
   border-radius: 2rem;
-  z-index: 1;
+  z-index: 10;
 }
 
 .card__info {
@@ -109,10 +109,27 @@ body {
 }
 
 .card__pin {
-  font-size: 2.5rem;
   position: absolute;
   right: -2rem;
   top: -2.7rem;
+}
+.Admin_RC {
+  font-size: 2.5rem;
+  filter: invert(50%);
+
+  z-index: 1;
+}
+
+.Admin_MRF {
+  font-size: 3rem;
+  filter: invert(100%);
+  z-index: 2;
+}
+
+.Admin_RT {
+  font-size: 3.5rem;
+  filter: invert(0%);
+  z-index: 3;
 }
 
 .card__basketwaste {

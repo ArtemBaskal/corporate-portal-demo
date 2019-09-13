@@ -5,7 +5,6 @@ import cardImages from "../api/superheroes.json";
 
 const Card = ({
   label,
-  isSelected,
   cards,
   handleSelect,
   handleDelete,
@@ -24,7 +23,7 @@ const Card = ({
         }}
       >
         {/* label */}
-        {accessRights === "Admin" && !canShowBacketwaste && (
+        {accessRights.slice(0, 5) === "Admin" && !canShowBacketwaste && (
           <span
             onClick={handleDelete}
             className="card__cross"
@@ -37,24 +36,25 @@ const Card = ({
         {cards[label] && cards[label].isSelected && (
           <span className="card__check" role="img">
             &#10003;
-            {/* &#9842; */}
-            {/* &#x1F4CC; */}
           </span>
         )}
-        {accessRights === "Admin" && canShowBacketwaste && (
+        {accessRights.slice(0, 5) === "Admin" && canShowBacketwaste && (
           <span className="card__basketwaste" role="img" onClick={handleDelete}>
             &#x2612;
           </span>
         )}
-        {cards[label] && cards[label].isPinned && (
-          <span className="card__pin" role="img">
-            {/* &#10003; */}
+        {cards[label] && cards[label].pinnedBy && (
+          /* (cards[label].pinnedBy === "Admin_RC" && */ <span
+            className={
+              "card__pin " + Object.keys(cards[label].pinnedBy).join(" ")
+            }
+            role="img"
+          >
             &#x1F4CC;
           </span>
         )}
-
         {/* <div className="card__info">{`Selected:${isSelected}`}</div>
-        <div className="card__info">{`Pinned:${isPinned}`}</div> */}
+        <div className="card__info">{`Pinned:${pinnedBy}`}</div> */}
         {/* <div>{JSON.stringify(cards[label])}</div> */}
         <h1 className="card__title">
           {label /* + cardImages[label % (cardImages.length - 1)].name */}

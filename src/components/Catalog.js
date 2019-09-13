@@ -16,7 +16,7 @@ const Catalog = ({
   <div className="card-container">
     {Object.values(cards).map(
       card =>
-        // console.log(cards[card.label] && cards[card.label].isPinned);
+        // console.log(cards[card.label] && cards[card.label].pinnedBy);
 
         // let isSelected = false;
 
@@ -32,8 +32,8 @@ const Catalog = ({
               // );
 
               // let reallyMakePinned;
-              // if (accessRights === "Admin" && cards[card.label]) {
-              //   if (cards[card.label].isPinned) {
+              // if (accessRights === "Admin__RC" && cards[card.label]) {
+              //   if (cards[card.label].pinnedBy) {
               //     reallyMakePinned = window.confirm(
               //       `Хотите ли вы сделать приложение ${card.label} обязательным для пользователей?`
               //     );
@@ -41,8 +41,9 @@ const Catalog = ({
               // }
 
               // if (reallyMakePinned) {
-              if (accessRights === "Admin")
-                return handlePinInSelected(card.label);
+              if (accessRights.slice(0, 5) === "Admin")
+                return handlePinInSelected(card.label, accessRights);
+
               handleSelectFromCatalog(card.label);
               // }
 
@@ -56,12 +57,12 @@ const Catalog = ({
               //   `Вы действительно хотите удалить ${card.label} из каталога?`
               // );
 
-              // if (accessRights !== "Admin") {
+              // if (accessRights !== "Admin__RC") {
               //   alert(
               //     `Недостаточно прав доступа ${accessRights} для удаления приложения из каталога!`
               //   );
               // }
-              // if (reallyDelete && accessRights === "Admin") {
+              // if (reallyDelete && accessRights === "Admin__RC") {
               return handleDeleteFromCatalog(card.label);
               // }
             }}
