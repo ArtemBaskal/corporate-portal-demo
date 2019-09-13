@@ -9,7 +9,7 @@ const AccessControl = ({ handleAccessRightsChange, accessRights }) => (
       name="access"
       id="access"
       onChange={e => {
-        alert(`Вы теперь ${e.target.value}`);
+        // alert(`Вы теперь ${e.target.value}`);
         return handleAccessRightsChange(e.target.value);
       }}
     >

@@ -5,6 +5,6 @@ import accessRightsReducer from "./accessRightsReducer";
 
 export default combineReducers({
   item: selectedItemsReducer,
-  catalog: catalogReducer,
+  // catalog: catalogReducer,
   accessRights: accessRightsReducer
 });

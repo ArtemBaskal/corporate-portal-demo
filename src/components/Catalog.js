@@ -14,60 +14,60 @@ const Catalog = ({
   handlePinInSelected
 }) => (
   <div className="card-container">
-    {Object.values(catalog).map(card => {
-      console.log(cards[card.label] && cards[card.label].isPinned);
+    {Object.values(cards).map(
+      card =>
+        // console.log(cards[card.label] && cards[card.label].isPinned);
 
-      // let isSelected = false;
-      return (
-        <Card
-          label={card.label}
-          key={card.label}
-          //isSelected={isSelected}
-          handleSelect={() => {
-            const reallySelect = window.confirm(
-              `Вы действительно хотите добавить ${card.label} в закреплённые приложений?`
-            );
+        // let isSelected = false;
 
-            let reallyMakePinned;
-            if (accessRights === "Admin" && cards[card.label]) {
-              if (cards[card.label].isPinned) {
-                reallyMakePinned = window.confirm(
-                  `Хотите ли вы сделать приложение ${card.label} обязательным для пользователей?`
-                );
-              } /* else if (!cards[card.label].isPinned) {
-                reallyMakePinned = window.confirm(
-                  `Хотите ли вы сделать приложение ${card.label} необязательным для пользователей?`
-                );
-              } */
-            }
+        card.isInCatalog && (
+          <Card
+            label={card.label}
+            key={card.label}
+            canShowBacketwaste
+            handleSelect={e => {
+              e.stopPropagation();
+              // const reallySelect = window.confirm(
+              //   `Вы действительно хотите добавить ${card.label} в закреплённые приложений?`
+              // );
 
-            if (reallyMakePinned) {
-              handlePinInSelected(card.label);
-            }
+              // let reallyMakePinned;
+              // if (accessRights === "Admin" && cards[card.label]) {
+              //   if (cards[card.label].isPinned) {
+              //     reallyMakePinned = window.confirm(
+              //       `Хотите ли вы сделать приложение ${card.label} обязательным для пользователей?`
+              //     );
+              //   }
+              // }
 
-            if (reallySelect) {
+              // if (reallyMakePinned) {
+              if (accessRights === "Admin")
+                return handlePinInSelected(card.label);
               handleSelectFromCatalog(card.label);
-              //TODO: Нельзя выбирать уже выбранные приложения
-            }
-          }}
-          handleDelete={e => {
-            e.stopPropagation();
-            const reallyDelete = window.confirm(
-              `Вы действительно хотите удалить ${card.label} из каталога?`
-            );
+              // }
 
-            if (accessRights !== "Admin") {
-              alert(
-                `Недостаточно прав доступа ${accessRights} для удаления приложения из каталога!`
-              );
-            }
-            if (reallyDelete && accessRights === "Admin") {
+              // if (reallySelect) {
+              //TODO: Нельзя выбирать уже выбранные приложения
+              // }
+            }}
+            handleDelete={e => {
+              e.stopPropagation();
+              // const reallyDelete = window.confirm(
+              //   `Вы действительно хотите удалить ${card.label} из каталога?`
+              // );
+
+              // if (accessRights !== "Admin") {
+              //   alert(
+              //     `Недостаточно прав доступа ${accessRights} для удаления приложения из каталога!`
+              //   );
+              // }
+              // if (reallyDelete && accessRights === "Admin") {
               return handleDeleteFromCatalog(card.label);
-            }
-          }}
-        />
-      );
-    })}
+              // }
+            }}
+          />
+        )
+    )}
   </div>
 );
 
