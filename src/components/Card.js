@@ -5,6 +5,7 @@ import cardImages from "../api/superheroes.json";
 
 const Card = ({
   label,
+  isSelected,
   cards,
   handleSelect,
   handleDelete,
@@ -16,11 +17,13 @@ const Card = ({
       <div
         onClick={handleSelect}
         className="card"
-        /* style={{
-          backgroundImage: `url(${cardImages[label].image})` || ""
-        }} */
+        style={{
+          backgroundImage:
+            `url(${cardImages[label % (cardImages.length - 1)].image})` || "",
+          backgroundBlendMode: "hard-light"
+        }}
       >
-        {label /*  + cardImages[label].name */}
+        {/* label */}
         {accessRights === "Admin" && !canShowBacketwaste && (
           <span
             onClick={handleDelete}
@@ -40,8 +43,7 @@ const Card = ({
         )}
         {accessRights === "Admin" && canShowBacketwaste && (
           <span className="card__basketwaste" role="img" onClick={handleDelete}>
-            {/* &#10831; */}
-            &#9842;
+            &#x2612;
           </span>
         )}
         {cards[label] && cards[label].isPinned && (
@@ -50,12 +52,13 @@ const Card = ({
             &#x1F4CC;
           </span>
         )}
-        <h1 className="card__title">
-          {label /*  + cardImages[label].name.slice(0, 8) */}
-        </h1>
+
         {/* <div className="card__info">{`Selected:${isSelected}`}</div>
         <div className="card__info">{`Pinned:${isPinned}`}</div> */}
         {/* <div>{JSON.stringify(cards[label])}</div> */}
+        <h1 className="card__title">
+          {label /* + cardImages[label % (cardImages.length - 1)].name */}
+        </h1>
       </div>
     )}
   </div>

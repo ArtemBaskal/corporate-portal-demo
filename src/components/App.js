@@ -11,8 +11,8 @@ const App = () => (
     <nav className="navigation__nav">
       <Link to="/">На главную</Link>
       <Link to="/catalog">Каталог приложений</Link>
+      <AccessControl />
     </nav>
-    <AccessControl />
     <Switch>
       <Route path="/" exact component={MainPage} />
       <Route path="/catalog" exact component={Catalog} />

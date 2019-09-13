@@ -10,12 +10,25 @@ import {
 //   .map((el, i) => (el = i));
 
 const INITAL_STATE = {
-  1: { label: 1, isSelected: false, isPinned: true, isInCatalog: true },
-  2: { label: 2, isSelected: true, isPinned: true, isInCatalog: true },
+  1: { label: 1, isSelected: true, isPinned: true, isInCatalog: true },
+  2: { label: 2, isSelected: false, isPinned: true, isInCatalog: true },
   3: { label: 3, isSelected: true, isPinned: false, isInCatalog: true },
-  4: { label: 4, isSelected: false, isPinned: false, isInCatalog: true },
-  5: { label: 5, isSelected: false, isPinned: false, isInCatalog: true },
-  6: { label: 6, isSelected: false, isPinned: false, isInCatalog: true }
+  4: { label: 4, isSelected: true, isPinned: false, isInCatalog: true },
+  5: { label: 5, isSelected: true, isPinned: false, isInCatalog: true },
+  6: { label: 6, isSelected: true, isPinned: false, isInCatalog: true },
+  7: { label: 7, isSelected: false, isPinned: false, isInCatalog: true },
+  8: { label: 8, isSelected: false, isPinned: false, isInCatalog: true },
+  9: { label: 9, isSelected: false, isPinned: false, isInCatalog: true },
+  10: { label: 10, isSelected: false, isPinned: false, isInCatalog: true },
+  11: { label: 11, isSelected: false, isPinned: false, isInCatalog: true },
+  12: { label: 12, isSelected: false, isPinned: false, isInCatalog: true },
+  13: { label: 13, isSelected: false, isPinned: false, isInCatalog: true },
+  14: { label: 14, isSelected: false, isPinned: false, isInCatalog: true },
+  15: { label: 15, isSelected: false, isPinned: false, isInCatalog: true },
+  16: { label: 16, isSelected: false, isPinned: false, isInCatalog: true },
+  17: { label: 17, isSelected: false, isPinned: false, isInCatalog: true },
+  18: { label: 18, isSelected: false, isPinned: false, isInCatalog: true },
+  19: { label: 19, isSelected: false, isPinned: false, isInCatalog: true }
 };
 
 // INITAL_STATE = Object.values(INITAL_STATE).map(val => val.value);

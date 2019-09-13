@@ -2,9 +2,10 @@ import React from "react";
 import { connect } from "react-redux";
 import "../styles/Card.css";
 import { handleAccessRightsChange } from "../actions";
+import "../styles/Card.css";
 
 const AccessControl = ({ handleAccessRightsChange, accessRights }) => (
-  <div>
+  <div className="access-control__select">
     <select
       name="access"
       id="access"
@@ -16,7 +17,7 @@ const AccessControl = ({ handleAccessRightsChange, accessRights }) => (
       <option value="User">User</option>
       <option value="Admin">Admin</option>
     </select>
-    <h2>{`Ваши текущие права доступа: ${accessRights}`}</h2>
+    {/* <span>{`Ваши текущие права доступа: ${accessRights}`}</span> */}
   </div>
 );
 

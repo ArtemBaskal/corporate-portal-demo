@@ -12,8 +12,8 @@
   --color-grey-dark-2: #777;
   --color-grey-dark-3: #999;
 
-  /* --shadow-dark: 0 2rem 6rem rgba(0,0,0,.3);
-    --shadow-light: 0 2rem 5rem rgba(0,0,0,.06); */
+  --shadow-dark: 0 2rem 6rem rgba(0, 0, 0, 0.3);
+  --shadow-light: 0 2rem 5rem rgba(0, 0, 0, 0.06);
 
   /* --line: 1px solid var(--color-grey-light-2); */
 
@@ -42,8 +42,7 @@ body {
 }
 .card-container {
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  flex-flow: row wrap;
   justify-content: flex-start;
   width: 100%;
 }
@@ -59,21 +58,22 @@ body {
   border: 1px solid var(--color-grey-dark-1);
   border-radius: 30%;
   border-top-right-radius: 0;
+  border-bottom-left-radius: 0;
 
   margin: 2rem;
   font-size: 5rem;
   cursor: pointer;
   position: relative;
   background-size: cover;
-  background-position-y: -1rem;
-  color: var(--color-primary-light);
+  /* background-position-y: -0.5rem; */
+  color: var(--color-grey-dark-1);
+  box-shadow: var(--shadow-light);
 }
 
 .card__title {
-  position: absolute;
-  bottom: -4rem;
+  bottom: -4.5rem;
   font-size: 3rem;
-  color: var(--color-primary-light);
+  position: absolute;
 }
 
 .card__cross {
@@ -116,27 +116,38 @@ body {
 }
 
 .card__basketwaste {
-  font-size: 3rem;
+  font-size: 4rem;
   position: absolute;
-  right: 0;
-  top: -1rem;
+  color: black;
+  left: -3rem;
+  bottom: -2rem;
 }
 .navigation__nav {
-  border: none;
-  color: var(--color-primary);
   font-size: 2rem;
   cursor: pointer;
   display: flex;
   flex-direction: row;
-  flex-basis: 2rem;
+  justify-content: flex-start;
+  padding: 2rem;
+
+  /* flex-basis: 2rem; */
 }
 
-.navigation__nav a {
+.navigation__nav > * {
+  margin-left: 2rem;
   color: var(--color-grey-dark-1);
   text-decoration: none;
-  margin: 2rem;
 }
 
 .navigation__nav a:hover {
   color: var(--color-primary-light);
+}
+
+.access-control__select {
+  /* align-c: flex-end; */
+  /* align-self: center; */
+  /* justify-self: flex-end; */
+  margin-left: auto;
+  margin-right: 10rem;
+  /* background-color: red; */
 }
