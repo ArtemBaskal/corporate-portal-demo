@@ -23,26 +23,34 @@ const Card = ({
         }}
       >
         {/* label */}
-        {accessRights.slice(0, 5) === "Admin" && !canShowBacketwaste && (
-          <span
-            onClick={handleDelete}
-            className="card__cross"
-            role="img"
-            aria-label={"X"}
-          >
-            &#10060;
-          </span>
-        )}
+        {accessRights.status &&
+          accessRights.status.slice(0, 5) === "Admin" &&
+          !canShowBacketwaste && (
+            <span
+              onClick={handleDelete}
+              className="card__cross"
+              role="img"
+              aria-label={"X"}
+            >
+              &#10060;
+            </span>
+          )}
         {cards[label] && cards[label].isSelected && (
           <span className="card__check" role="img">
             &#10003;
           </span>
         )}
-        {accessRights.slice(0, 5) === "Admin" && canShowBacketwaste && (
-          <span className="card__basketwaste" role="img" onClick={handleDelete}>
-            &#x2612;
-          </span>
-        )}
+        {accessRights.status &&
+          accessRights.status.slice(0, 5) === "Admin" &&
+          canShowBacketwaste && (
+            <span
+              className="card__basketwaste"
+              role="img"
+              onClick={handleDelete}
+            >
+              &#x2612;
+            </span>
+          )}
         {cards[label] && cards[label].pinnedBy && (
           /* (cards[label].pinnedBy === "Admin_RC" && */ <span
             className={

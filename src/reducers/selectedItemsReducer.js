@@ -9,7 +9,7 @@ const INITAL_STATE = {
   1: {
     label: 1,
     isSelected: true,
-    pinnedBy: { Admin_RC: true, priority: 3 },
+    pinnedBy: { Admin_RC: true, priority: 1 },
     isInCatalog: true
   },
   2: {
@@ -21,7 +21,7 @@ const INITAL_STATE = {
   3: {
     label: 3,
     isSelected: true,
-    pinnedBy: { Admin_RT: true, priority: 1 },
+    pinnedBy: { Admin_RT: true, priority: 3 },
     isInCatalog: true
   },
   4: { label: 4, isSelected: true, isInCatalog: true },
@@ -79,7 +79,7 @@ const INITAL_STATE = {
 };
 
 export default (state = INITAL_STATE, action) => {
-  let { type, payload } = action;
+  const { type, payload } = action;
   switch (type) {
     case DELETE_FROM_SELECTED:
       return {
@@ -102,24 +102,19 @@ export default (state = INITAL_STATE, action) => {
       };
 
     case SELECT_FROM_CATALOG:
-      // const {
-      //   data: { pinnedBy },
-      //   accessRights
-      // } = payload;
       return {
         ...state,
         [payload]: {
           ...state[payload],
           label: payload,
           isSelected: !state[payload].isSelected
-          // pinnedBy: false
         }
       };
     case PIN_IN_SELECTED:
-      let {
+      const {
         data,
         data: { pinnedBy },
-        accessRights
+        accessRights: { status, priority }
       } = payload;
 
       return {
@@ -127,12 +122,11 @@ export default (state = INITAL_STATE, action) => {
         [data]: {
           ...state[data],
           label: data,
-          // ...state.pinnedBy,
 
           pinnedBy: {
-            ...state[data].pinnedBy,
-            [accessRights]: true
-            // highestPriority: 0
+            ...pinnedBy,
+            [status]: true,
+            priority
           }
         }
       };

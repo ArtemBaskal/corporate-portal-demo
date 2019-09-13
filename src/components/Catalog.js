@@ -41,7 +41,10 @@ const Catalog = ({
               // }
 
               // if (reallyMakePinned) {
-              if (accessRights.slice(0, 5) === "Admin")
+              if (
+                accessRights.status &&
+                accessRights.status.slice(0, 5) === "Admin"
+              )
                 return handlePinInSelected(card.label, accessRights);
 
               handleSelectFromCatalog(card.label);
@@ -57,12 +60,12 @@ const Catalog = ({
               //   `Вы действительно хотите удалить ${card.label} из каталога?`
               // );
 
-              // if (accessRights !== "Admin__RC") {
+              // if (accessRights.status !== "Admin__RC") {
               //   alert(
-              //     `Недостаточно прав доступа ${accessRights} для удаления приложения из каталога!`
+              //     `Недостаточно прав доступа ${accessRights.status} для удаления приложения из каталога!`
               //   );
               // }
-              // if (reallyDelete && accessRights === "Admin__RC") {
+              // if (reallyDelete && accessRights.status === "Admin__RC") {
               return handleDeleteFromCatalog(card.label);
               // }
             }}

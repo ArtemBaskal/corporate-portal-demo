@@ -4,14 +4,23 @@ import "../styles/Card.css";
 import { handleAccessRightsChange } from "../actions";
 import "../styles/Card.css";
 
-const AccessControl = ({ handleAccessRightsChange, accessRights }) => (
+const ACCESS_RIGHTS = {
+  User: { status: "User", priority: 0 },
+  Admin_RC: { status: "Admin_RC", priority: 1 },
+  Admin_MRF: { status: "Admin_MRF", priority: 2 },
+  Admin_RT: { status: "Admin_RT", priority: 3 }
+};
+
+const AccessControl = ({ handleAccessRightsChange }) => (
   <div className="access-control__select">
     <select
       name="access"
       id="access"
       onChange={e => {
-        // alert(`Вы теперь ${e.target.value}`);
-        return handleAccessRightsChange(e.target.value);
+        console.dir(e.target);
+
+        console.log(ACCESS_RIGHTS[e.target.value]);
+        return handleAccessRightsChange(ACCESS_RIGHTS[e.target.value]);
       }}
     >
       <option value="User">User</option>

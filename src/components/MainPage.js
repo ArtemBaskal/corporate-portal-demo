@@ -58,7 +58,7 @@ const MainPage = ({
 );
 
 const mapStateToProps = state => ({
-  accessRights: state.accessRights,
+  // accessRights: state.accessRights,
   cards: state.item
 });
 
