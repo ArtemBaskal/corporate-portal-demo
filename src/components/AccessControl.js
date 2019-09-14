@@ -16,12 +16,7 @@ const AccessControl = ({ handleAccessRightsChange }) => (
     <select
       name="access"
       id="access"
-      onChange={e => {
-        console.dir(e.target);
-
-        console.log(ACCESS_RIGHTS[e.target.value]);
-        return handleAccessRightsChange(ACCESS_RIGHTS[e.target.value]);
-      }}
+      onChange={e => handleAccessRightsChange(ACCESS_RIGHTS[e.target.value])}
     >
       <option value="User">User</option>
       <option value="Admin_RC">Admin_RC</option>
@@ -32,11 +27,11 @@ const AccessControl = ({ handleAccessRightsChange }) => (
   </div>
 );
 
-const mapStateToProps = state => ({
-  accessRights: state.accessRights
-});
+// const mapStateToProps = state => ({
+//   accessRights: state.accessRights
+// });
 
 export default connect(
-  mapStateToProps,
+  null,
   { handleAccessRightsChange }
 )(AccessControl);

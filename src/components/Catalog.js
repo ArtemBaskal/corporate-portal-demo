@@ -6,7 +6,6 @@ import { handleDeleteFromCatalog } from "../actions";
 import { handlePinInSelected } from "../actions";
 
 const Catalog = ({
-  catalog,
   accessRights,
   cards,
   handleSelectFromCatalog,
@@ -14,69 +13,71 @@ const Catalog = ({
   handlePinInSelected
 }) => (
   <div className="card-container">
-    {Object.values(cards).map(
-      card =>
-        // console.log(cards[card.label] && cards[card.label].pinnedBy);
+    {/* TODO: Radix sort */}
+    {Object.values(cards)
+      .sort((first, second) => first.order - second.order)
+      .map(
+        card =>
+          // console.log(cards[card.label] && cards[card.label].pinnedBy);
 
-        // let isSelected = false;
+          // let isSelected = false;
 
-        card.isInCatalog && (
-          <Card
-            label={card.label}
-            key={card.label}
-            canShowBacketwaste
-            handleSelect={e => {
-              e.stopPropagation();
-              // const reallySelect = window.confirm(
-              //   `Вы действительно хотите добавить ${card.label} в закреплённые приложений?`
-              // );
+          card.isInCatalog && (
+            <Card
+              label={card.label}
+              key={card.label}
+              canShowBacketwaste
+              handleSelect={e => {
+                e.stopPropagation();
+                // const reallySelect = window.confirm(
+                //   `Вы действительно хотите добавить ${card.label} в закреплённые приложений?`
+                // );
 
-              // let reallyMakePinned;
-              // if (accessRights === "Admin__RC" && cards[card.label]) {
-              //   if (cards[card.label].pinnedBy) {
-              //     reallyMakePinned = window.confirm(
-              //       `Хотите ли вы сделать приложение ${card.label} обязательным для пользователей?`
-              //     );
-              //   }
-              // }
+                // let reallyMakePinned;
+                // if (accessRights === "Admin__RC" && cards[card.label]) {
+                //   if (cards[card.label].pinnedBy) {
+                //     reallyMakePinned = window.confirm(
+                //       `Хотите ли вы сделать приложение ${card.label} обязательным для пользователей?`
+                //     );
+                //   }
+                // }
 
-              // if (reallyMakePinned) {
-              if (
-                accessRights.status &&
-                accessRights.status.slice(0, 5) === "Admin"
-              )
-                return handlePinInSelected(card.label, accessRights);
+                // if (reallyMakePinned) {
+                if (
+                  accessRights.status &&
+                  accessRights.status.slice(0, 5) === "Admin"
+                )
+                  return handlePinInSelected(card.label, accessRights);
 
-              handleSelectFromCatalog(card.label);
-              // }
+                handleSelectFromCatalog(card.label);
+                // }
 
-              // if (reallySelect) {
-              //TODO: Нельзя выбирать уже выбранные приложения
-              // }
-            }}
-            handleDelete={e => {
-              e.stopPropagation();
-              // const reallyDelete = window.confirm(
-              //   `Вы действительно хотите удалить ${card.label} из каталога?`
-              // );
+                // if (reallySelect) {
+                //TODO: Нельзя выбирать уже выбранные приложения
+                // }
+              }}
+              handleDelete={e => {
+                e.stopPropagation();
+                // const reallyDelete = window.confirm(
+                //   `Вы действительно хотите удалить ${card.label} из каталога?`
+                // );
 
-              // if (accessRights.status !== "Admin__RC") {
-              //   alert(
-              //     `Недостаточно прав доступа ${accessRights.status} для удаления приложения из каталога!`
-              //   );
-              // }
-              // if (reallyDelete && accessRights.status === "Admin__RC") {
-              return handleDeleteFromCatalog(card.label);
-              // }
-            }}
-          />
-        )
-    )}
+                // if (accessRights.status !== "Admin__RC") {
+                //   alert(
+                //     `Недостаточно прав доступа ${accessRights.status} для удаления приложения из каталога!`
+                //   );
+                // }
+                // if (reallyDelete && accessRights.status === "Admin__RC") {
+                return handleDeleteFromCatalog(card.label);
+                // }
+              }}
+            />
+          )
+      )}
   </div>
 );
 
 const mapStateToProps = state => ({
-  catalog: state.catalog,
   accessRights: state.accessRights,
   cards: state.item
 });

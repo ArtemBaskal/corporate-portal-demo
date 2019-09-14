@@ -9,19 +9,25 @@ const Card = ({
   handleSelect,
   handleDelete,
   accessRights,
-  canShowBacketwaste
+  canShowBacketwaste,
+  onDragStart,
+  onDragOver,
+  onDragEnd,
+  order
 }) => (
   <div>
     {label && (
       <div
         onClick={handleSelect}
+        onDragStart={onDragStart}
+        onDragOver={onDragOver}
+        onDragEnd={onDragEnd}
         className="card"
-        style={{
-          backgroundImage:
-            `url(${cardImages[label % (cardImages.length - 1)].image})` || "",
-          backgroundBlendMode: "hard-light"
-        }}
       >
+        <img
+          className="card"
+          src={`${cardImages[label % (cardImages.length - 1)].image}`}
+        ></img>
         {/* label */}
         {accessRights.status &&
           accessRights.status.slice(0, 5) === "Admin" &&
@@ -66,6 +72,7 @@ const Card = ({
         {/* <div>{JSON.stringify(cards[label])}</div> */}
         <h1 className="card__title">
           {label /* + cardImages[label % (cardImages.length - 1)].name */}
+          {/* {" " + order} */}
         </h1>
       </div>
     )}

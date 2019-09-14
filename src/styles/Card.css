@@ -64,11 +64,17 @@ body {
   font-size: 5rem;
   cursor: pointer;
   position: relative;
-  background-size: cover;
   /* background-position-y: -0.5rem; */
   color: var(--color-grey-dark-1);
   box-shadow: var(--shadow-light);
+  cursor: pointer;
+  user-select: contain;
+  object-fit: cover;
+  object-position: 0rem -0.5rem;
 }
+
+/* .card {
+} */
 
 .card__title {
   bottom: -4.5rem;

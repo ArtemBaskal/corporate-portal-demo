@@ -40,3 +40,10 @@ export const handlePinInSelected = (data, accessRights) => {
     payload: { data, accessRights }
   };
 };
+
+export const test = data => {
+  return {
+    type: "test",
+    payload: data
+  };
+};

@@ -6,81 +6,96 @@ import {
 } from "../actions/types";
 
 const INITAL_STATE = {
-  1: {
+  0: {
+    order: 0,
     label: 1,
     isSelected: true,
     pinnedBy: { Admin_RC: true, priority: 1 },
     isInCatalog: true
   },
-  2: {
+  1: {
+    order: 1,
     label: 2,
     isSelected: false,
     pinnedBy: { Admin_MRF: true, priority: 2 },
     isInCatalog: true
   },
-  3: {
+  2: {
+    order: 2,
     label: 3,
     isSelected: true,
     pinnedBy: { Admin_RT: true, priority: 3 },
     isInCatalog: true
   },
-  4: { label: 4, isSelected: true, isInCatalog: true },
-  5: { label: 5, isSelected: true, isInCatalog: true },
-  6: { label: 6, isSelected: true, isInCatalog: true },
-  7: { label: 7, isSelected: false, isInCatalog: true },
-  8: { label: 8, isSelected: false, isInCatalog: true },
-  9: { label: 9, isSelected: false, isInCatalog: true },
-  10: {
+  3: { order: 3, label: 4, isSelected: true, isInCatalog: true },
+  4: { order: 4, label: 5, isSelected: true, isInCatalog: true },
+  5: { order: 5, label: 6, isSelected: true, isInCatalog: true },
+  6: { order: 6, label: 7, isSelected: false, isInCatalog: true },
+  7: { order: 7, label: 8, isSelected: false, isInCatalog: true },
+  8: { order: 8, label: 9, isSelected: false, isInCatalog: true },
+  9: {
+    order: 9,
     label: 10,
     isSelected: false,
     isInCatalog: true
   },
-  11: {
+  10: {
+    order: 10,
     label: 11,
     isSelected: false,
     isInCatalog: true
   },
-  12: {
+  11: {
+    order: 11,
     label: 12,
     isSelected: false,
     isInCatalog: true
   },
-  13: {
+  12: {
+    order: 12,
     label: 13,
     isSelected: false,
     isInCatalog: true
   },
-  14: {
+  13: {
+    order: 13,
     label: 14,
     isSelected: false,
     isInCatalog: true
   },
-  15: {
+  14: {
+    order: 14,
     label: 15,
     isSelected: false,
     isInCatalog: true
   },
-  16: {
+  15: {
+    order: 15,
     label: 16,
     isSelected: false,
     isInCatalog: true
   },
-  17: {
+  16: {
+    order: 16,
     label: 17,
     isSelected: false,
     isInCatalog: true
   },
-  18: {
+  17: {
+    order: 17,
     label: 18,
     isSelected: false,
     isInCatalog: true
   },
-  19: { label: 19, isSelected: false, isInCatalog: true }
+  18: { order: 18, label: 19, isSelected: false, isInCatalog: true }
 };
 
 export default (state = INITAL_STATE, action) => {
   const { type, payload } = action;
   switch (type) {
+    case "test": {
+      return action.payload;
+    }
     case DELETE_FROM_SELECTED:
       return {
         ...state,

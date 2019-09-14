@@ -3,7 +3,6 @@ import { Router, Route, Switch, Link } from "react-router-dom";
 import MainPage from "./MainPage";
 import Catalog from "./Catalog";
 import AccessControl from "./AccessControl";
-
 import history from "../history";
 
 const App = () => (
