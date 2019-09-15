@@ -4,100 +4,145 @@ import {
   PIN_IN_SELECTED,
   DELETE_FROM_CATALOG
 } from "../actions/types";
-import { produce } from "immer";
+import p from "immer";
 
-const INITAL_STATE = {
-  // 0: {
-  //   order: 0,
-  //   label: 0,
-  //   isSelected: true,
-  //   pinnedBy: { Admin_RC: true, priority: 1 },
-  //   isInCatalog: true
-  // },
-  1: {
+const INITAL_STATE = [
+  {
+    order: 0,
+    label: 0,
+    isSelected: true,
+    pinnedBy: { Admin_System: true, priority: 1 },
+    isInCatalog: true
+  },
+  {
     order: 1,
     label: 1,
     isSelected: false,
     pinnedBy: { Admin_MRF: true, priority: 2 },
     isInCatalog: true
   },
-  2: {
+  {
     order: 2,
     label: 2,
     isSelected: true,
     pinnedBy: { Admin_RT: true, priority: 3 },
     isInCatalog: true
   },
-  3: {
+  {
     order: 3,
     label: 3,
     isSelected: true,
-    pinnedBy: { Admin_RC: true, priority: 1 },
+    pinnedBy: { Admin_System: true, priority: 1 },
     isInCatalog: true
   },
-  4: { order: 4, label: 4, isSelected: true, isInCatalog: true },
-  5: { order: 5, label: 5, isSelected: true, isInCatalog: true },
-  6: { order: 6, label: 6, isSelected: false, isInCatalog: true },
-  7: { order: 7, label: 7, isSelected: false, isInCatalog: true },
-  8: { order: 8, label: 8, isSelected: false, isInCatalog: true },
-  9: {
+  {
+    order: 4,
+    label: 4,
+    isSelected: true,
+    pinnedBy: { priority: 0 },
+    isInCatalog: true
+  },
+  {
+    order: 5,
+    label: 5,
+    isSelected: true,
+    pinnedBy: { priority: 0 },
+    isInCatalog: true
+  },
+  {
+    order: 6,
+    label: 6,
+    isSelected: false,
+    pinnedBy: { priority: 0 },
+    isInCatalog: true
+  },
+  {
+    order: 7,
+    label: 7,
+    isSelected: false,
+    pinnedBy: { priority: 0 },
+    isInCatalog: true
+  },
+  {
+    order: 8,
+    label: 8,
+    isSelected: false,
+    pinnedBy: { priority: 0 },
+    isInCatalog: true
+  },
+  {
     order: 9,
     label: 9,
     isSelected: false,
+    pinnedBy: { priority: 0 },
     isInCatalog: true
   },
-  10: {
+  {
     order: 10,
     label: 10,
     isSelected: false,
+    pinnedBy: { priority: 0 },
     isInCatalog: true
   },
-  11: {
+  {
     order: 11,
     label: 11,
     isSelected: false,
+    pinnedBy: { priority: 0 },
     isInCatalog: true
   },
-  12: {
+  {
     order: 12,
     label: 12,
     isSelected: false,
+    pinnedBy: { priority: 0 },
     isInCatalog: true
   },
-  13: {
+  {
     order: 13,
     label: 13,
     isSelected: false,
+    pinnedBy: { priority: 0 },
     isInCatalog: true
   },
-  14: {
+  {
     order: 14,
     label: 14,
     isSelected: false,
+    pinnedBy: { priority: 0 },
     isInCatalog: true
   },
-  15: {
+  {
     order: 15,
     label: 15,
     isSelected: false,
+    pinnedBy: { priority: 0 },
     isInCatalog: true
   },
-  16: {
+  {
     order: 16,
     label: 16,
     isSelected: false,
+    pinnedBy: { priority: 0 },
     isInCatalog: true
   },
-  17: {
+  {
     order: 17,
     label: 17,
     isSelected: false,
+    pinnedBy: { priority: 0 },
     isInCatalog: true
   },
-  18: { order: 18, label: 18, isSelected: false, isInCatalog: true }
-};
+  {
+    order: 18,
+    label: 18,
+    isSelected: false,
+    pinnedBy: { priority: 0 },
+    isInCatalog: true
+  }
+];
 
-export default produce((state = INITAL_STATE, action) => {
+export default p((state = INITAL_STATE, action) => {
   const { type, payload } = action;
   switch (type) {
     case "test": {
@@ -146,11 +191,10 @@ export default produce((state = INITAL_STATE, action) => {
     case PIN_IN_SELECTED:
       const {
         data,
-        data: { pinnedBy },
         accessRights: { status, priority }
       } = payload;
 
-      console.log(action);
+      console.log(state, action);
       // return {
       //   ...state,
       //   [data]: {
@@ -164,9 +208,10 @@ export default produce((state = INITAL_STATE, action) => {
       //     }
       //   }
       // };
-      // state[action.payload.data].pinnedBy[
-      //   action.payload.accessRights.status
-      // ] = true;
+
+      state[data].pinnedBy[status] = true;
+      state[data].pinnedBy.priority = priority;
+
       return state;
     default:
       return state;

@@ -17,12 +17,13 @@ const Catalog = ({
     {Object.values(cards)
       .sort((first, second) => first.order - second.order)
       .map(
-        card =>
+        (card, idx) =>
           // console.log(cards[card.label] && cards[card.label].pinnedBy);
 
           // let isSelected = false;
 
-          card.isInCatalog && (
+          card.isInCatalog /*  &&
+          idx > 0 */ && (
             <Card
               label={card.label}
               key={card.label}

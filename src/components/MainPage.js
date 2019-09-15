@@ -85,9 +85,8 @@ class MainPage extends React.Component {
       <div className="card-container">
         {Object.values(this.props.cards).map(
           (card, idx) =>
-            (card.isSelected ||
-              (card.pinnedBy && Object.values(card.pinnedBy).length)) && (
-              <Card
+            (card.isSelected || Object.values(card.pinnedBy).length > 1) && (
+              /*  idx > 0 &&  */ <Card
                 key={card.label}
                 label={card.label}
                 onDragOver={() => this.onDragOver(idx)}
@@ -169,20 +168,20 @@ export default connect(
 //   `Вы действительно хотите удалить ${card.label} из закреплённых приложений?`
 // );
 
-// if (accessRights !== "Admin_RC" && card.pinnedBy && reallyDelete) {
+// if (accessRights !== "Admin_System" && card.pinnedBy && reallyDelete) {
 //   alert(
 //     `Недостаточно прав для удаления закреплённого приложения "${card.label}"`
 //   );
 //   //TODO: если нельзя удалить, то сразу писать об этом
 // } else if (
 //   (!card.pinnedBy && reallyDelete) ||
-//   (card.pinnedBy && accessRights == "Admin_RC")
+//   (card.pinnedBy && accessRights == "Admin_System")
 // )
 
 // handleSelectFromCatalog(card.label);
 // handlePinInSelected(card.label);
 // const reallyMakePinned =
-//   accessRights === "Admin_RC"
+//   accessRights === "Admin_System"
 //     ? window.confirm(
 //         `Хотите ли вы сделать приложение ${card.label} обязательным для пользователей?`
 //       )

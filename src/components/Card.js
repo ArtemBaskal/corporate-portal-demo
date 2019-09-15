@@ -16,7 +16,7 @@ const Card = ({
   order
 }) => (
   <div>
-    {label && (
+    {label.toString() && (
       <div
         onClick={handleSelect}
         onDragStart={onDragStart}
@@ -57,8 +57,8 @@ const Card = ({
               &#x2612;
             </span>
           )}
-        {cards[label] && cards[label].pinnedBy && (
-          /* (cards[label].pinnedBy === "Admin_RC" && */ <span
+        {cards[label] && Object.values(cards[label].pinnedBy).length > 1 && (
+          /* (cards[label].pinnedBy === "Admin_System" && */ <span
             className={
               "card__pin " + Object.keys(cards[label].pinnedBy).join(" ")
             }
