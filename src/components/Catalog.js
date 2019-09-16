@@ -63,7 +63,6 @@ class Catalog extends React.Component {
                 idx={idx}
                 label={card.label}
                 key={card.label}
-                pinnedBy={card.pinnedBy}
                 canShowBacketwaste
                 handleSelect={e => {
                   e.stopPropagation();

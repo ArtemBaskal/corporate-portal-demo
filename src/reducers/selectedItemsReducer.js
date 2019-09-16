@@ -149,11 +149,13 @@ export default p((state = INITAL_STATE, action) => {
     case DRAG: {
       return action.payload;
     }
+
     case DELETE_FROM_SELECTED: {
       state[action.payload].isSelected = false;
       state[action.payload].pinnedBy = { priority: 0 };
       return state;
     }
+
     case DELETE_FROM_CATALOG:
       state[action.payload].isSelected = false;
       state[action.payload].isInCatalog = false;
