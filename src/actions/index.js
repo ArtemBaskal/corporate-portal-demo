@@ -3,47 +3,48 @@ import {
   DELETE_FROM_SELECTED,
   CHANGE_ACCESS_RIGHTS,
   DELETE_FROM_CATALOG,
-  PIN_IN_SELECTED
+  TOGGLE_PIN,
+  DRAG
 } from "./types";
 
-export const handleSelectFromCatalog = data => {
+export const selectFromCatalog = data => {
   return {
     type: SELECT_FROM_CATALOG,
     payload: data
   };
 };
 
-export const handleDeleteFromSelected = data => {
+export const deleteFromSelected = data => {
   return {
     type: DELETE_FROM_SELECTED,
     payload: data
   };
 };
 
-export const handleAccessRightsChange = data => {
+export const accessRightsChange = data => {
   return {
     type: CHANGE_ACCESS_RIGHTS,
     payload: data
   };
 };
 
-export const handleDeleteFromCatalog = data => {
+export const deleteFromCatalog = data => {
   return {
     type: DELETE_FROM_CATALOG,
     payload: data
   };
 };
 
-export const handlePinInSelected = (data, accessRights) => {
+export const togglePin = (data, accessRights) => {
   return {
-    type: PIN_IN_SELECTED,
+    type: TOGGLE_PIN,
     payload: { data, accessRights }
   };
 };
 
-export const test = data => {
+export const handleDrag = data => {
   return {
-    type: "test",
+    type: DRAG,
     payload: data
   };
 };

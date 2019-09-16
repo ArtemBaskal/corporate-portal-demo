@@ -1,82 +1,90 @@
 import React from "react";
 import Card from "./Card";
 import { connect } from "react-redux";
-import { handleSelectFromCatalog } from "../actions";
-import { handleDeleteFromCatalog } from "../actions";
-import { handlePinInSelected } from "../actions";
+import {
+  selectFromCatalog,
+  deleteFromCatalog,
+  togglePin,
+  handleDrag
+} from "../actions";
 
-const Catalog = ({
-  accessRights,
-  cards,
-  handleSelectFromCatalog,
-  handleDeleteFromCatalog,
-  handlePinInSelected
-}) => (
-  <div className="card-container">
-    {/* TODO: Radix sort */}
-    {Object.values(cards)
-      .sort((first, second) => first.order - second.order)
-      .map(
-        (card, idx) =>
-          // console.log(cards[card.label] && cards[card.label].pinnedBy);
+class Catalog extends React.Component {
+  onDragStart = (e, idx) => {
+    const { accessRights } = this.props;
+    if (accessRights.status && accessRights.status.slice(0, 5) === "Admin") {
+      this.draggedItem = this.props.cards[idx];
+      e.dataTransfer.effectAllowed = "grabbing";
+      e.dataTransfer.setData("text/html", e.target.parentNode);
+      e.dataTransfer.setDragImage(e.target.parentNode, 50, 50);
+    }
+  };
 
-          // let isSelected = false;
+  onDragOver = idx => {
+    const { accessRights } = this.props;
+    if (accessRights.status && accessRights.status.slice(0, 5) === "Admin") {
+      const draggedOverItem = this.props.cards[idx];
 
-          card.isInCatalog /*  &&
-          idx > 0 */ && (
-            <Card
-              label={card.label}
-              key={card.label}
-              canShowBacketwaste
-              handleSelect={e => {
-                e.stopPropagation();
-                // const reallySelect = window.confirm(
-                //   `Вы действительно хотите добавить ${card.label} в закреплённые приложений?`
-                // );
+      if (this.draggedItem === draggedOverItem) {
+        return;
+      }
 
-                // let reallyMakePinned;
-                // if (accessRights === "Admin__RC" && cards[card.label]) {
-                //   if (cards[card.label].pinnedBy) {
-                //     reallyMakePinned = window.confirm(
-                //       `Хотите ли вы сделать приложение ${card.label} обязательным для пользователей?`
-                //     );
-                //   }
-                // }
+      let items = this.props.cards.filter(item => item !== this.draggedItem);
 
-                // if (reallyMakePinned) {
-                if (
-                  accessRights.status &&
-                  accessRights.status.slice(0, 5) === "Admin"
-                )
-                  return handlePinInSelected(card.label, accessRights);
+      items.splice(idx, 0, this.draggedItem);
 
-                handleSelectFromCatalog(card.label);
-                // }
+      this.props.handleDrag(items);
+    }
+  };
 
-                // if (reallySelect) {
-                //TODO: Нельзя выбирать уже выбранные приложения
-                // }
-              }}
-              handleDelete={e => {
-                e.stopPropagation();
-                // const reallyDelete = window.confirm(
-                //   `Вы действительно хотите удалить ${card.label} из каталога?`
-                // );
+  onDragEnd = () => {
+    const { accessRights } = this.props;
+    if (accessRights.status && accessRights.status.slice(0, 5) === "Admin") {
+      this.draggedIdx = null;
+    }
+  };
 
-                // if (accessRights.status !== "Admin__RC") {
-                //   alert(
-                //     `Недостаточно прав доступа ${accessRights.status} для удаления приложения из каталога!`
-                //   );
-                // }
-                // if (reallyDelete && accessRights.status === "Admin__RC") {
-                return handleDeleteFromCatalog(card.label);
-                // }
-              }}
-            />
-          )
-      )}
-  </div>
-);
+  render() {
+    const {
+      accessRights,
+      cards,
+      selectFromCatalog,
+      deleteFromCatalog,
+      togglePin
+    } = this.props;
+    return (
+      <div className="card-container">
+        {cards.map(
+          (card, idx) =>
+            card.isInCatalog && (
+              <Card
+                onDragStart={e => this.onDragStart(e, idx)}
+                onDragOver={() => this.onDragOver(idx)}
+                onDragEnd={this.onDragEnd}
+                idx={idx}
+                label={card.label}
+                key={card.label}
+                pinnedBy={card.pinnedBy}
+                canShowBacketwaste
+                handleSelect={e => {
+                  e.stopPropagation();
+                  if (
+                    accessRights.status &&
+                    accessRights.status.slice(0, 5) === "Admin"
+                  )
+                    return togglePin(idx, accessRights);
+                  selectFromCatalog(idx);
+                }}
+                handleDelete={e => {
+                  e.stopPropagation();
+                  return deleteFromCatalog(idx);
+                }}
+              />
+            )
+        )}
+      </div>
+    );
+  }
+}
 
 const mapStateToProps = state => ({
   accessRights: state.accessRights,
@@ -85,5 +93,10 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { handleSelectFromCatalog, handleDeleteFromCatalog, handlePinInSelected }
+  {
+    selectFromCatalog,
+    deleteFromCatalog,
+    togglePin,
+    handleDrag
+  }
 )(Catalog);

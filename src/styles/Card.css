@@ -73,9 +73,6 @@ body {
   object-position: 0rem -0.5rem;
 }
 
-/* .card {
-} */
-
 .card__title {
   bottom: -4.5rem;
   font-size: 3rem;
@@ -132,7 +129,7 @@ body {
   z-index: 2;
 }
 
-.Admin_RT {
+.Admin_RF {
   font-size: 3.5rem;
   filter: invert(0%);
   z-index: 3;

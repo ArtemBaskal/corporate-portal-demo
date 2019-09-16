@@ -4,6 +4,7 @@ import "../styles/Card.css";
 import cardImages from "../api/superheroes.json";
 
 const Card = ({
+  idx,
   label,
   cards,
   handleSelect,
@@ -12,8 +13,7 @@ const Card = ({
   canShowBacketwaste,
   onDragStart,
   onDragOver,
-  onDragEnd,
-  order
+  onDragEnd
 }) => (
   <div>
     {label.toString() && (
@@ -28,52 +28,41 @@ const Card = ({
           className="card"
           src={`${cardImages[label % (cardImages.length - 1)].image}`}
         ></img>
-        {/* label */}
         {accessRights.status &&
           accessRights.status.slice(0, 5) === "Admin" &&
           !canShowBacketwaste && (
-            <span
-              onClick={handleDelete}
-              className="card__cross"
-              role="img"
-              aria-label={"X"}
-            >
+            <span onClick={handleDelete} className="card__cross">
               &#10060;
             </span>
           )}
-        {cards[label] && cards[label].isSelected && (
-          <span className="card__check" role="img">
-            &#10003;
-          </span>
+        {cards[idx] && cards[idx].isSelected && (
+          <span className="card__check">&#10003;</span>
         )}
         {accessRights.status &&
           accessRights.status.slice(0, 5) === "Admin" &&
           canShowBacketwaste && (
-            <span
-              className="card__basketwaste"
-              role="img"
-              onClick={handleDelete}
-            >
+            <span className="card__basketwaste" onClick={handleDelete}>
               &#x2612;
             </span>
           )}
-        {cards[label] && Object.values(cards[label].pinnedBy).length > 1 && (
-          /* (cards[label].pinnedBy === "Admin_System" && */ <span
-            className={
-              "card__pin " + Object.keys(cards[label].pinnedBy).join(" ")
-            }
-            role="img"
-          >
-            &#x1F4CC;
-          </span>
-        )}
-        {/* <div className="card__info">{`Selected:${isSelected}`}</div>
-        <div className="card__info">{`Pinned:${pinnedBy}`}</div> */}
-        {/* <div>{JSON.stringify(cards[label])}</div> */}
-        <h1 className="card__title">
-          {label /* + cardImages[label % (cardImages.length - 1)].name */}
-          {/* {" " + order} */}
-        </h1>
+
+        {cards[idx] &&
+          Object.values(cards[idx].pinnedBy).some(el => el === true) && (
+            <span
+              className={
+                "card__pin " +
+                Object.keys(cards[idx].pinnedBy)
+                  .filter(el => cards[idx].pinnedBy[el] === true)
+                  .join(" ")
+              }
+            >
+              &#x1F4CC;
+            </span>
+          )}
+        <h1 className="card__title">{label}</h1>
+        {/* <div style={{ fontSize: "20px" }}>
+          {JSON.stringify(Object.keys(cards[idx].pinnedBy).length)}
+        </div> */}
       </div>
     )}
   </div>
