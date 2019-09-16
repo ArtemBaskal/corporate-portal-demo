@@ -1,6 +1,5 @@
 import React from "react";
 import { connect } from "react-redux";
-import "../styles/Card.css";
 import { accessRightsChange } from "../actions";
 import "../styles/Card.css";
 

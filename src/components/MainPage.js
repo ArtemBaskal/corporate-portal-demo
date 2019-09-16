@@ -14,7 +14,8 @@ const MainPage = props => {
     <div className="card-container">
       {props.cards.map(
         card =>
-          (card.isSelected || card.pinnedBy.priority > 0) && (
+          (card.isSelected ||
+            Array.from(card.pinnedBy.priority).length > 1) && (
             <Card
               key={card.label}
               label={card.label}

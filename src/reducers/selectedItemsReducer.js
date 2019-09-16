@@ -1,5 +1,5 @@
 import {
-  SELECT_FROM_CATALOG,
+  TOGGLE_SELECT,
   DELETE_FROM_SELECTED,
   TOGGLE_PIN,
   DELETE_FROM_CATALOG,
@@ -163,23 +163,22 @@ export default p((state = INITAL_STATE, action) => {
 
       return state;
 
-    case SELECT_FROM_CATALOG:
+    case TOGGLE_SELECT:
       state[action.payload].isSelected = !state[action.payload].isSelected;
 
       return state;
+
     case TOGGLE_PIN:
       const {
         data,
         accessRights: { status, priority }
       } = payload;
 
+      let previousPriority = state[data].pinnedBy.priority;
+
       state[data].pinnedBy[status] = !state[data].pinnedBy[status];
-      state[
-        data
-      ].pinnedBy.priority = priority; /* Math.max(
-        state[data].pinnedBy.priority,
-        priority 
-      );*/
+      state[data].pinnedBy.priority =
+        priority > previousPriority ? priority : previousPriority;
 
       return state;
     default:

@@ -38,8 +38,10 @@ const Card = ({
         {cards[idx] && cards[idx].isSelected && (
           <span className="card__check">&#10003;</span>
         )}
+
         {accessRights.status &&
           accessRights.status.slice(0, 5) === "Admin" &&
+          accessRights.priority > 1 &&
           canShowBacketwaste && (
             <span className="card__basketwaste" onClick={handleDelete}>
               &#x2612;
@@ -60,8 +62,8 @@ const Card = ({
             </span>
           )}
         <h1 className="card__title">{label}</h1>
-        {/* <div style={{ fontSize: "20px" }}>
-          {JSON.stringify(Object.keys(cards[idx].pinnedBy).length)}
+        {/* <div style={{ fontSize: "10px" }}>
+          {JSON.stringify(accessRights.priority)}
         </div> */}
       </div>
     )}
