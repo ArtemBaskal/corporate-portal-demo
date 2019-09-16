@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/Corporate-Portal/static/css/main.0674971d.chunk.css",
-    "main.js": "/Corporate-Portal/static/js/main.abab4562.chunk.js",
-    "main.js.map": "/Corporate-Portal/static/js/main.abab4562.chunk.js.map",
+    "main.js": "/Corporate-Portal/static/js/main.44805f22.chunk.js",
+    "main.js.map": "/Corporate-Portal/static/js/main.44805f22.chunk.js.map",
     "runtime~main.js": "/Corporate-Portal/static/js/runtime~main.131fd1fb.js",
     "runtime~main.js.map": "/Corporate-Portal/static/js/runtime~main.131fd1fb.js.map",
-    "static/js/2.57a2d97f.chunk.js": "/Corporate-Portal/static/js/2.57a2d97f.chunk.js",
-    "static/js/2.57a2d97f.chunk.js.map": "/Corporate-Portal/static/js/2.57a2d97f.chunk.js.map",
+    "static/js/2.7d7acade.chunk.js": "/Corporate-Portal/static/js/2.7d7acade.chunk.js",
+    "static/js/2.7d7acade.chunk.js.map": "/Corporate-Portal/static/js/2.7d7acade.chunk.js.map",
     "index.html": "/Corporate-Portal/index.html",
-    "precache-manifest.f7eb67d688faa8c8174f9b6b969f4caa.js": "/Corporate-Portal/precache-manifest.f7eb67d688faa8c8174f9b6b969f4caa.js",
+    "precache-manifest.738e0550c7186280c5b6150fbe542165.js": "/Corporate-Portal/precache-manifest.738e0550c7186280c5b6150fbe542165.js",
     "service-worker.js": "/Corporate-Portal/service-worker.js",
     "static/css/main.0674971d.chunk.css.map": "/Corporate-Portal/static/css/main.0674971d.chunk.css.map"
   }
