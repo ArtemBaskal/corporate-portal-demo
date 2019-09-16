@@ -147,24 +147,25 @@ export default p((state = INITAL_STATE, action) => {
   const { type, payload } = action;
   switch (type) {
     case DRAG: {
-      return action.payload;
+      return payload;
     }
 
     case DELETE_FROM_SELECTED: {
-      state[action.payload].isSelected = false;
-      state[action.payload].pinnedBy = { priority: 0 };
+      state[payload].isSelected = false;
+      state[payload].pinnedBy = { priority: 0 };
+
       return state;
     }
 
     case DELETE_FROM_CATALOG:
-      state[action.payload].isSelected = false;
-      state[action.payload].isInCatalog = false;
-      state[action.payload].pinnedBy = { priority: 0 };
+      state[payload].isSelected = false;
+      state[payload].isInCatalog = false;
+      state[payload].pinnedBy = { priority: 0 };
 
       return state;
 
     case TOGGLE_SELECT:
-      state[action.payload].isSelected = !state[action.payload].isSelected;
+      state[payload].isSelected = !state[payload].isSelected;
 
       return state;
 

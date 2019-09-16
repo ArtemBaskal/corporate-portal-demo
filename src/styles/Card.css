@@ -55,20 +55,21 @@ body {
   height: 10rem;
   justify-content: center;
   align-items: center;
-  border: 1px solid var(--color-grey-dark-1);
-  border-radius: 30%;
-  border-top-right-radius: 0;
-  border-bottom-left-radius: 0;
-
   margin: 2rem;
   font-size: 5rem;
   cursor: pointer;
   position: relative;
-  /* background-position-y: -0.5rem; */
   color: var(--color-grey-dark-1);
   box-shadow: var(--shadow-light);
-  cursor: pointer;
-  user-select: contain;
+}
+
+.card__img {
+  overflow: hidden;
+  width: 10rem;
+  height: 10rem;
+  border-radius: 30%;
+  border-top-right-radius: 0;
+  border-bottom-left-radius: 0;
   object-fit: cover;
   object-position: 0rem -0.5rem;
 }
@@ -136,11 +137,17 @@ body {
 }
 
 .card__basketwaste {
+  display: none;
+}
+.card:hover .card__basketwaste {
+  height: 3rem;
+  width: 3rem;
   font-size: 4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: absolute;
-  color: black;
-  left: -3rem;
-  bottom: -2rem;
+  color: red;
 }
 .navigation__nav {
   font-size: 2rem;

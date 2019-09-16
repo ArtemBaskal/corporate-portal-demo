@@ -25,7 +25,7 @@ const Card = ({
         className="card"
       >
         <img
-          className="card"
+          className="card__img"
           src={`${cardImages[label % (cardImages.length - 1)].image}`}
         ></img>
         {accessRights.status &&
@@ -41,7 +41,7 @@ const Card = ({
 
         {accessRights.status &&
           accessRights.status.slice(0, 5) === "Admin" &&
-          accessRights.priority > 1 &&
+          accessRights.priority > 0 &&
           canShowBacketwaste && (
             <span className="card__basketwaste" onClick={handleDelete}>
               &#x2612;

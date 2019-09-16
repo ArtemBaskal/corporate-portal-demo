@@ -9,20 +9,18 @@ import {
 } from "../actions";
 import "../styles/Card.css";
 
-const MainPage = props => {
+const MainPage = ({ cards, deleteFromSelected }) => {
   return (
     <div className="card-container">
-      {props.cards.map(
-        card =>
+      {cards.map(
+        (card, idx) =>
           (card.isSelected ||
-            Array.from(card.pinnedBy.priority).length > 1) && (
+            Object.values(card.pinnedBy).some(el => el === true)) && (
             <Card
               key={card.label}
               label={card.label}
               isSelected={card.isSelected}
-              handleDelete={() => {
-                return props.deleteFromSelected(card.label);
-              }}
+              handleDelete={() => deleteFromSelected(idx)}
             />
           )
       )}
