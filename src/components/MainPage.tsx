@@ -3,12 +3,12 @@ import { connect } from "react-redux";
 import Card from "./Card";
 import { deleteFromSelected, togglePin, handleDrag } from "../actions";
 import "../styles/Card.css";
-import { Cards } from "../actions";
+import { App } from "../actions";
 
-const MainPage = ({ cards, deleteFromSelected }: any): JSX.Element => {
+const MainPage = ({ apps, deleteFromSelected }: any): JSX.Element => {
   return (
     <div className="card-container">
-      {cards.map((card: Cards, idx: number) => {
+      {apps.map((card: App, idx: number) => {
         if (
           card.isSelected ||
           Object.values(card.pinnedBy).some(el => el === true)
@@ -29,7 +29,7 @@ const MainPage = ({ cards, deleteFromSelected }: any): JSX.Element => {
 };
 
 const mapStateToProps = (state: any): any => ({
-  cards: state.item
+  apps: state.apps
 });
 
 export default connect(

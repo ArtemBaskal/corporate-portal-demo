@@ -7,23 +7,23 @@ import {
   togglePin,
   handleDrag
 } from "../actions";
-import { Cards, User } from "../actions";
+import { App, User } from "../actions";
 import { StoreState } from "../reducers";
 
 interface CatalogProps {
   accessRights: User;
-  cards: Cards[];
+  apps: App[];
   selectFromCatalog: typeof selectFromCatalog;
   deleteFromCatalog: typeof deleteFromCatalog;
   togglePin: typeof togglePin;
-  handleDrag(cards: Cards[]): any;
+  handleDrag(apps: App[]): any;
 }
 
 class Catalog extends React.Component<CatalogProps> {
   onDragStart = (e: any, idx: number): void => {
     const { accessRights } = this.props;
     if (accessRights.status && accessRights.status.slice(0, 5) === "Admin") {
-      this.draggedItem = this.props.cards[idx];
+      this.draggedItem = this.props.apps[idx];
       e.dataTransfer.effectAllowed = "grabbing";
       e.dataTransfer.setData("text/html", e.target.parentNode);
       e.dataTransfer.setDragImage(e.target.parentNode, 50, 50);
@@ -31,15 +31,15 @@ class Catalog extends React.Component<CatalogProps> {
   };
 
   onDragOver = (idx: number): void => {
-    const { accessRights, cards, handleDrag } = this.props;
+    const { accessRights, apps, handleDrag } = this.props;
     if (accessRights.status && accessRights.status.slice(0, 5) === "Admin") {
-      const draggedOverItem = cards[idx];
+      const draggedOverItem = apps[idx];
 
       if (this.draggedItem === draggedOverItem) {
         return;
       }
 
-      let items = cards.filter(item => item !== this.draggedItem);
+      let items = apps.filter(item => item !== this.draggedItem);
 
       items.splice(idx, 0, this.draggedItem);
 
@@ -53,20 +53,22 @@ class Catalog extends React.Component<CatalogProps> {
       this.draggedIdx = null;
     }
   };
+  // draggedItem: App;
+  // draggedIdx: number | void;
   draggedItem: any;
   draggedIdx: any;
 
   render() {
     const {
       accessRights,
-      cards,
+      apps,
       selectFromCatalog,
       deleteFromCatalog,
       togglePin
     } = this.props;
     return (
       <div className="card-container">
-        {cards.map(
+        {apps.map(
           (card, idx) =>
             card.isInCatalog && (
               <Card
@@ -80,6 +82,7 @@ class Catalog extends React.Component<CatalogProps> {
                 handleSelect={(e: Event) => {
                   e.stopPropagation();
                   if (
+                    accessRights &&
                     accessRights.status &&
                     accessRights.status.slice(0, 5) === "Admin"
                   )
@@ -100,10 +103,10 @@ class Catalog extends React.Component<CatalogProps> {
 
 const mapStateToProps = ({
   accessRights,
-  item
-}: StoreState): { accessRights: User; cards: Cards[] } => ({
+  apps
+}: StoreState): { accessRights: User; apps: App[] } => ({
   accessRights,
-  cards: item
+  apps
 });
 
 export default connect(

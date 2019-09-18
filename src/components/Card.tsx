@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import "../styles/Card.css";
 import cardImages from "../api/superheroes.json";
-import { User, Cards } from "../actions";
+import { User, App } from "../actions";
 
 interface AppProps {
   idx: number;
@@ -56,7 +56,7 @@ const Card = ({
 
         {accessRights.status &&
           accessRights.status.slice(0, 5) === "Admin" &&
-          accessRights.priority > 0 &&
+          accessRights.level > 0 &&
           canShowBacketwaste && (
             <span className="card__basketwaste" onClick={handleDelete}>
               &#x2612;
@@ -77,16 +77,13 @@ const Card = ({
             </span>
           )}
         <h1 className="card__title">{label}</h1>
-        {/* <div style={{ fontSize: "10px" }}>
-          {JSON.stringify(accessRights.priority)}
-        </div> */}
       </div>
     )}
   </div>
 );
 
 const mapStateToProps = (state: any) => ({
-  cards: state.item,
+  cards: state.apps,
   accessRights: state.accessRights
 });
 

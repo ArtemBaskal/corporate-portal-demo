@@ -4,27 +4,28 @@ import { accessRightsChange, User } from "../actions";
 import "../styles/Card.css";
 
 interface AccessControlProps {
-  accessRightsChange: any;
+  accessRightsChange?(data: User): typeof accessRightsChange;
 }
 
 const ACCESS_RIGHTS: { [key: string]: User } = {
-  User: { status: "User", priority: 0 },
-  Admin_System: { status: "Admin_System", priority: 1 },
-  Admin_MRF: { status: "Admin_MRF", priority: 2 },
-  Admin_RF: { status: "Admin_RF", priority: 3 }
+  User: { status: "User", level: 0 },
+  Admin_System: { status: "Admin_System", level: 1 },
+  Admin_MRF: { status: "Admin_MRF", level: 2 },
+  Admin_RF: { status: "Admin_RF", level: 3 }
 };
 
-const AccessControl = ({ accessRightsChange }: AccessControlProps) => (
+const AccessControl = ({ accessRightsChange }: any): JSX.Element => (
   <div className="access-control__select">
     <select
       name="access"
       id="access"
-      onChange={e => accessRightsChange(ACCESS_RIGHTS[e.target.value])}
+      onChange={e =>
+        accessRightsChange && accessRightsChange(ACCESS_RIGHTS[e.target.value])
+      }
     >
-      <option value="User">User</option>
-      <option value="Admin_System">Admin_System</option>
-      <option value="Admin_MRF">Admin_MRF</option>
-      <option value="Admin_RF">Admin_RF</option>
+      {Object.values(ACCESS_RIGHTS).map(({ status }) => (
+        <option key={status}>{status}</option>
+      ))}
     </select>
   </div>
 );

@@ -1,4 +1,8 @@
-import { HandleByIdAction, ChangeAccessRightsAction } from "./cards";
+import {
+  HandleByIdAction,
+  AccessRightsChangeAction,
+  TogglePinAction
+} from "./cards";
 
 export enum ActionTypes {
   TOGGLE_SELECT,
@@ -9,4 +13,7 @@ export enum ActionTypes {
   DRAG
 }
 
-export type Action = HandleByIdAction | ChangeAccessRightsAction;
+export type Action =
+  | HandleByIdAction
+  | AccessRightsChangeAction
+  | TogglePinAction;

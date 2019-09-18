@@ -3,9 +3,9 @@ import { HashRouter, Route, Switch, Link } from "react-router-dom";
 import MainPage from "./MainPage";
 import Catalog from "./Catalog";
 import AccessControl from "./AccessControl";
-import history from "../history";
+// import history from "../history";
 
-const App = () => (
+const App = (): JSX.Element => (
   <HashRouter basename="/">
     <nav className="navigation__nav">
       <Link to="/">На главную</Link>

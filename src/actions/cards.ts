@@ -1,21 +1,26 @@
 import { ActionTypes } from "./types";
 
-export interface Cards {
+export interface PinnedBy {
+  [key: string]: boolean;
+  (level: string): number;
+}
+
+export interface App {
   order: number;
   label: number;
   isSelected: boolean;
-  pinnedBy: object;
+  pinnedBy: PinnedBy;
   isInCatalog: boolean;
 }
 
 export interface AccessRights {
   status: string;
-  priority: number;
+  level: number;
 }
 
 export interface User {
   status: string;
-  priority: number;
+  level: number;
 }
 
 export interface HandleByIdAction {
@@ -26,15 +31,21 @@ export interface HandleByIdAction {
   payload: number;
 }
 
-export interface TogglePinAction {
-  type: ActionTypes.TOGGLE_PIN;
-  payload: 1;
-}
-
-export interface ChangeAccessRightsAction {
+export interface AccessRightsChangeAction {
   type: ActionTypes.CHANGE_ACCESS_RIGHTS;
   payload: User;
 }
+
+export interface TogglePinAction {
+  type: ActionTypes.TOGGLE_PIN;
+  payload: { idx: number; accessRights: User };
+}
+
+export interface HandleDragAction {
+  type: ActionTypes.DRAG;
+  payload: App[];
+}
+
 export const selectFromCatalog = (id: number): HandleByIdAction => {
   return {
     type: ActionTypes.TOGGLE_SELECT,
@@ -49,13 +60,6 @@ export const deleteFromSelected = (id: number): HandleByIdAction => {
   };
 };
 
-export const accessRightsChange = (data: User): ChangeAccessRightsAction => {
-  return {
-    type: ActionTypes.CHANGE_ACCESS_RIGHTS,
-    payload: data
-  };
-};
-
 export const deleteFromCatalog = (id: number): HandleByIdAction => {
   return {
     type: ActionTypes.DELETE_FROM_CATALOG,
@@ -63,14 +67,21 @@ export const deleteFromCatalog = (id: number): HandleByIdAction => {
   };
 };
 
-export const togglePin = (data: number, accessRights: User) => {
+export const accessRightsChange = (data: User): AccessRightsChangeAction => {
   return {
-    type: ActionTypes.TOGGLE_PIN,
-    payload: { data, accessRights }
+    type: ActionTypes.CHANGE_ACCESS_RIGHTS,
+    payload: data
   };
 };
 
-export const handleDrag = (data: Cards[]) => {
+export const togglePin = (idx: number, accessRights: User): TogglePinAction => {
+  return {
+    type: ActionTypes.TOGGLE_PIN,
+    payload: { idx, accessRights }
+  };
+};
+
+export const handleDrag = (data: App[]): HandleDragAction => {
   return {
     type: ActionTypes.DRAG,
     payload: data

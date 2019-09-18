@@ -1,11 +1,11 @@
 import { ActionTypes } from "../actions/types";
-import { ChangeAccessRightsAction } from "../actions";
+import { AccessRightsChangeAction } from "../actions";
 
 const INITAL_STATE = "User";
 
 export default (
   state: String = INITAL_STATE,
-  action: ChangeAccessRightsAction
+  action: AccessRightsChangeAction
 ) => {
   switch (action.type) {
     case ActionTypes.CHANGE_ACCESS_RIGHTS:
