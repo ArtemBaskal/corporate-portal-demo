@@ -18,10 +18,10 @@ export interface AccessRights {
   level: number;
 }
 
-export interface User {
-  status: string;
-  level: number;
-}
+// export interface User {
+//   status: string;
+//   level: number;
+// }
 
 export interface HandleByIdAction {
   type:
@@ -33,12 +33,12 @@ export interface HandleByIdAction {
 
 export interface AccessRightsChangeAction {
   type: ActionTypes.CHANGE_ACCESS_RIGHTS;
-  payload: User;
+  payload: AccessRights;
 }
 
 export interface TogglePinAction {
   type: ActionTypes.TOGGLE_PIN;
-  payload: { idx: number; accessRights: User };
+  payload: { idx: number; accessRights: AccessRights };
 }
 
 export interface HandleDragAction {
@@ -67,14 +67,19 @@ export const deleteFromCatalog = (id: number): HandleByIdAction => {
   };
 };
 
-export const accessRightsChange = (data: User): AccessRightsChangeAction => {
+export const accessRightsChange = (
+  data: AccessRights
+): AccessRightsChangeAction => {
   return {
     type: ActionTypes.CHANGE_ACCESS_RIGHTS,
     payload: data
   };
 };
 
-export const togglePin = (idx: number, accessRights: User): TogglePinAction => {
+export const togglePin = (
+  idx: number,
+  accessRights: AccessRights
+): TogglePinAction => {
   return {
     type: ActionTypes.TOGGLE_PIN,
     payload: { idx, accessRights }

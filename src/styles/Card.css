@@ -61,6 +61,7 @@ body {
   position: relative;
   color: var(--color-grey-dark-1);
   box-shadow: var(--shadow-light);
+  transition: all 0.1s ease-in;
 }
 
 .card__img {
@@ -82,6 +83,10 @@ body {
 
 .card__cross {
   display: none;
+}
+
+.card:hover {
+  transform: translateY(-0.25rem);
 }
 
 .card:hover .card__cross {
@@ -148,7 +153,18 @@ body {
   align-items: center;
   position: absolute;
   color: red;
+  cursor: no-drop;
 }
+
+.card:active {
+  transform: scale(1.02);
+  cursor: grabbing;
+}
+
+.card:active .card__basketwaste {
+  opacity: 0;
+}
+
 .navigation__nav {
   font-size: 2rem;
   cursor: pointer;

@@ -1,7 +1,8 @@
 import {
   HandleByIdAction,
   AccessRightsChangeAction,
-  TogglePinAction
+  TogglePinAction,
+  HandleDragAction
 } from "./cards";
 
 export enum ActionTypes {
@@ -16,4 +17,5 @@ export enum ActionTypes {
 export type Action =
   | HandleByIdAction
   | AccessRightsChangeAction
-  | TogglePinAction;
+  | TogglePinAction
+  | HandleDragAction;

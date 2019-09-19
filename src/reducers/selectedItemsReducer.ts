@@ -1,4 +1,4 @@
-import { Action, ActionTypes } from "../actions";
+import { App, Action, ActionTypes } from "../actions";
 import p from "immer";
 
 const INITAL_STATE = [
@@ -137,7 +137,10 @@ const INITAL_STATE = [
   }
 ];
 
-export default p((state = INITAL_STATE, action: any) => {
+export default p((
+  state /* : Array<App> */ = INITAL_STATE,
+  action: any /* Action */
+) => {
   const { type, payload } = action;
   switch (type) {
     case ActionTypes.DRAG: {
@@ -145,21 +148,21 @@ export default p((state = INITAL_STATE, action: any) => {
     }
 
     case ActionTypes.DELETE_FROM_SELECTED: {
-      state[payload].isSelected = false;
-      state[payload].pinnedBy = { level: 0 };
+      state[Number(payload)].isSelected = false;
+      state[Number(payload)].pinnedBy = { level: 0 };
 
       return state;
     }
 
     case ActionTypes.DELETE_FROM_CATALOG:
-      state[payload].isSelected = false;
-      state[payload].isInCatalog = false;
-      state[payload].pinnedBy = { level: 0 };
+      state[Number(payload)].isSelected = false;
+      state[Number(payload)].isInCatalog = false;
+      state[Number(payload)].pinnedBy = { level: 0 };
 
       return state;
 
     case ActionTypes.TOGGLE_SELECT:
-      state[payload].isSelected = !state[payload].isSelected;
+      state[Number(payload)].isSelected = !state[Number(payload)].isSelected;
 
       return state;
 

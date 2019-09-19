@@ -5,7 +5,12 @@ import { deleteFromSelected, togglePin, handleDrag } from "../actions";
 import "../styles/Card.css";
 import { App } from "../actions";
 
-const MainPage = ({ apps, deleteFromSelected }: any): JSX.Element => {
+type MainPageProps = {
+  apps: App[];
+  deleteFromSelected(idx: number): typeof deleteFromSelected;
+};
+
+const MainPage = ({ apps, deleteFromSelected }: MainPageProps): JSX.Element => {
   return (
     <div className="card-container">
       {apps.map((card: App, idx: number) => {
@@ -28,8 +33,8 @@ const MainPage = ({ apps, deleteFromSelected }: any): JSX.Element => {
   );
 };
 
-const mapStateToProps = (state: any): any => ({
-  apps: state.apps
+const mapStateToProps = ({ apps }: { apps: App[] }): any => ({
+  apps
 });
 
 export default connect(

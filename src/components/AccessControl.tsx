@@ -1,13 +1,13 @@
 import React from "react";
 import { connect } from "react-redux";
-import { accessRightsChange, User } from "../actions";
+import { accessRightsChange, AccessRights } from "../actions";
 import "../styles/Card.css";
 
 interface AccessControlProps {
-  accessRightsChange?(data: User): typeof accessRightsChange;
+  accessRightsChange?(data: AccessRights): typeof accessRightsChange;
 }
 
-const ACCESS_RIGHTS: { [key: string]: User } = {
+const ACCESS_RIGHTS: { [key: string]: AccessRights } = {
   User: { status: "User", level: 0 },
   Admin_System: { status: "Admin_System", level: 1 },
   Admin_MRF: { status: "Admin_MRF", level: 2 },

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { DragEvent } from "react";
 import Card from "./Card";
 import { connect } from "react-redux";
 import {
@@ -7,26 +7,27 @@ import {
   togglePin,
   handleDrag
 } from "../actions";
-import { App, User } from "../actions";
+import { App, AccessRights } from "../actions";
 import { StoreState } from "../reducers";
 
 interface CatalogProps {
-  accessRights: User;
+  accessRights: AccessRights;
   apps: App[];
-  selectFromCatalog: typeof selectFromCatalog;
-  deleteFromCatalog: typeof deleteFromCatalog;
-  togglePin: typeof togglePin;
-  handleDrag(apps: App[]): any;
+  selectFromCatalog(idx: number): typeof selectFromCatalog;
+  deleteFromCatalog(idx: number): typeof deleteFromCatalog;
+  togglePin(idx: number, access: AccessRights): typeof togglePin;
+  handleDrag(app: App[]): typeof handleDrag;
 }
 
 class Catalog extends React.Component<CatalogProps> {
-  onDragStart = (e: any, idx: number): void => {
-    const { accessRights } = this.props;
-    if (accessRights.status && accessRights.status.slice(0, 5) === "Admin") {
+  onDragStart = (e: React.DragEvent, idx: number): void => {
+    const {
+      accessRights: { status }
+    } = this.props;
+    if (status && status.slice(0, 5) === "Admin") {
       this.draggedItem = this.props.apps[idx];
       e.dataTransfer.effectAllowed = "grabbing";
-      e.dataTransfer.setData("text/html", e.target.parentNode);
-      e.dataTransfer.setDragImage(e.target.parentNode, 50, 50);
+      e.dataTransfer.setDragImage(e.target as HTMLDivElement, 50, 50);
     }
   };
 
@@ -72,14 +73,14 @@ class Catalog extends React.Component<CatalogProps> {
           (card, idx) =>
             card.isInCatalog && (
               <Card
-                onDragStart={(e: Event) => this.onDragStart(e, idx)}
+                onDragStart={(e: React.DragEvent) => this.onDragStart(e, idx)}
                 onDragOver={() => this.onDragOver(idx)}
                 onDragEnd={this.onDragEnd}
                 idx={idx}
                 label={card.label.toString()}
                 key={card.label}
                 canShowBacketwaste
-                handleSelect={(e: Event) => {
+                handleSelect={(e: React.MouseEvent) => {
                   e.stopPropagation();
                   if (
                     accessRights &&
@@ -87,9 +88,9 @@ class Catalog extends React.Component<CatalogProps> {
                     accessRights.status.slice(0, 5) === "Admin"
                   )
                     return togglePin(idx, accessRights);
-                  selectFromCatalog(idx);
+                  return selectFromCatalog(idx);
                 }}
-                handleDelete={(e: Event) => {
+                handleDelete={(e: React.MouseEvent) => {
                   e.stopPropagation();
                   return deleteFromCatalog(idx);
                 }}
@@ -101,15 +102,12 @@ class Catalog extends React.Component<CatalogProps> {
   }
 }
 
-const mapStateToProps = ({
-  accessRights,
-  apps
-}: StoreState): { accessRights: User; apps: App[] } => ({
+const mapStateToProps = ({ accessRights, apps }: any): StoreState => ({
   accessRights,
   apps
 });
 
-export default connect(
+export default connect<StoreState, {}, CatalogProps>(
   mapStateToProps,
   {
     selectFromCatalog,

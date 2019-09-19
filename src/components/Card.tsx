@@ -2,26 +2,26 @@ import React from "react";
 import { connect } from "react-redux";
 import "../styles/Card.css";
 import cardImages from "../api/superheroes.json";
-import { User, App } from "../actions";
+import { AccessRights, App } from "../actions";
 
 interface AppProps {
   idx: number;
   label: string;
-  cards?: any;
-  handleSelect?: any;
-  handleDelete?: any;
-  accessRights: User;
+  apps: App[];
+  handleSelect?(e: React.MouseEvent): Function;
+  handleDelete?(e: React.MouseEvent): Function;
+  accessRights: AccessRights;
   canShowBacketwaste?: boolean;
-  onDragStart?: any;
-  onDragOver?: any;
-  onDragEnd?: any;
-  isSelected?: any;
+  onDragStart?(e: React.DragEvent): void;
+  onDragOver?(e: React.DragEvent): void;
+  onDragEnd?(e: React.DragEvent): void;
+  isSelected?: boolean;
 }
 
 const Card = ({
   idx,
   label,
-  cards,
+  apps,
   handleSelect,
   handleDelete,
   accessRights,
@@ -50,7 +50,7 @@ const Card = ({
               &#10060;
             </span>
           )}
-        {cards[idx] && cards[idx].isSelected && (
+        {apps[idx] && apps[idx].isSelected && (
           <span className="card__check">&#10003;</span>
         )}
 
@@ -63,13 +63,13 @@ const Card = ({
             </span>
           )}
 
-        {cards[idx] &&
-          Object.values(cards[idx].pinnedBy).some(el => el === true) && (
+        {apps[idx] &&
+          Object.values(apps[idx].pinnedBy).some(el => el === true) && (
             <span
               className={
                 "card__pin " +
-                Object.keys(cards[idx].pinnedBy)
-                  .filter(el => cards[idx].pinnedBy[el] === true)
+                Object.keys(apps[idx].pinnedBy)
+                  .filter(el => apps[idx].pinnedBy[el] === true)
                   .join(" ")
               }
             >
@@ -83,7 +83,7 @@ const Card = ({
 );
 
 const mapStateToProps = (state: any) => ({
-  cards: state.apps,
+  apps: state.apps,
   accessRights: state.accessRights
 });
 

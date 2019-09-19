@@ -1,10 +1,11 @@
 import { ActionTypes } from "../actions/types";
 import { AccessRightsChangeAction } from "../actions";
+import { AccessRights } from "../actions";
 
-const INITAL_STATE = "User";
+const INITAL_STATE = { status: "User", level: 0 };
 
 export default (
-  state: String = INITAL_STATE,
+  state: AccessRights = INITAL_STATE,
   action: AccessRightsChangeAction
 ) => {
   switch (action.type) {
