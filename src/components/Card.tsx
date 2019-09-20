@@ -2,13 +2,13 @@ import React from "react";
 import { connect } from "react-redux";
 import "../styles/Card.css";
 import cardImages from "../api/superheroes.json";
-import { AccessRights, App, Admins } from "../actions";
+import { AccessRights, STATE, Admins } from "../actions";
 import { StoreState } from "../reducers";
 
 interface AppProps {
   idx: number;
   label: string;
-  apps: App[];
+  apps: STATE;
   handleSelect?:
     | ((event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void)
     | undefined;

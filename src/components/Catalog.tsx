@@ -9,12 +9,13 @@ import {
   HandleByIdAction,
   TogglePinAction
 } from "../actions";
-import { App, AccessRights } from "../actions";
+import { STATE, AccessRights } from "../actions";
 import { StoreState } from "../reducers";
+import radixSort from "../helpers/radixSort";
 
 interface CatalogProps {
   accessRights: AccessRights;
-  apps: App[];
+  apps: STATE;
   selectFromCatalog: typeof selectFromCatalog;
   deleteFromCatalog: typeof deleteFromCatalog;
   togglePin: typeof togglePin;
@@ -24,38 +25,57 @@ interface CatalogProps {
 class Catalog extends React.Component<CatalogProps> {
   constructor(
     props: CatalogProps,
-    private draggedItem?: App,
-    private draggedIdx?: number | null
+    // private draggedItem: App,
+    // private draggedOverItem?: App,
+    private draggedIdx?: number | null,
+    private draggedOverIdx?: number | null
   ) {
     super(props);
   }
 
   onDragStart = (e: React.DragEvent, idx: number): void => {
     const {
-      accessRights: { status }
+      accessRights: { status },
+      apps
     } = this.props;
+
     if (status && status.slice(0, 5) === "Admin") {
-      this.draggedItem = this.props.apps[idx];
+      this.draggedIdx = idx;
       e.dataTransfer.effectAllowed = "grabbing";
-      e.dataTransfer.setDragImage(e.target as HTMLDivElement, 50, 50);
+      e.dataTransfer.setDragImage(e.target as HTMLElement, 50, 50);
     }
   };
 
   onDragOver = (idx: number): void => {
     const { accessRights, apps, handleDrag } = this.props;
     if (accessRights.status && accessRights.status.slice(0, 5) === "Admin") {
-      const draggedOverItem = apps[idx];
+      this.draggedOverIdx = idx;
 
-      if (this.draggedItem === draggedOverItem) {
+      if (this.draggedIdx === this.draggedOverIdx) {
         return;
       }
 
-      let items = apps.filter(item => item !== this.draggedItem);
+      const items = JSON.parse(JSON.stringify(apps));
 
-      this.draggedItem && items.splice(idx, 0, this.draggedItem);
+      [
+        items[idx].order,
+        items[this.draggedIdx as number].order,
+        items[idx],
+        items[this.draggedIdx as number],
+        this.draggedIdx,
+        this.draggedOverIdx
+      ] = [
+        items[this.draggedIdx as number].order,
+        items[idx].order,
+        items[this.draggedIdx as number],
+        items[idx],
+        this.draggedOverIdx,
+        this.draggedIdx
+      ];
 
       handleDrag(items);
     }
+    return;
   };
 
   onDragEnd = (): void => {
@@ -75,16 +95,16 @@ class Catalog extends React.Component<CatalogProps> {
     } = this.props;
     return (
       <div className="card-container">
-        {apps.map(
-          (card, idx) =>
-            card.isInCatalog && (
+        {radixSort(Object.values(apps) as [], "order", "ASC").map(
+          (app, idx) =>
+            app.isInCatalog && (
               <Card
                 onDragStart={(e: React.DragEvent) => this.onDragStart(e, idx)}
                 onDragOver={() => this.onDragOver(idx)}
                 onDragEnd={this.onDragEnd}
                 idx={idx}
-                label={card.label.toString()}
-                key={card.label}
+                label={app.label.toString()}
+                key={app.label.toString()}
                 canShowBacketwaste
                 handleSelect={(
                   e: React.MouseEvent

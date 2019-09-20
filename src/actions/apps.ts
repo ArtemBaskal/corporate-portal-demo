@@ -14,7 +14,6 @@ export interface PinnedBy {
   [Admins.Admin_System]: boolean;
   [Admins.Admin_MRF]: boolean;
   [Admins.Admin_RF]: boolean;
-  // [key: string]: keyof Admins;
   level: number;
 }
 
@@ -24,6 +23,10 @@ export interface App {
   isSelected: boolean;
   pinnedBy: PinnedBy;
   isInCatalog: boolean;
+}
+
+export interface STATE {
+  [key: string]: App;
 }
 
 export interface AccessRights {
@@ -56,7 +59,7 @@ export interface TogglePinAction {
 
 export interface HandleDragAction {
   type: ActionTypes.DRAG;
-  payload: App[];
+  payload: STATE;
 }
 
 export const selectFromCatalog = (id: number): HandleByIdAction => {
@@ -99,7 +102,7 @@ export const togglePin = ({
   };
 };
 
-export const handleDrag = (data: App[]): HandleDragAction => {
+export const handleDrag = (data: STATE): HandleDragAction => {
   return {
     type: ActionTypes.DRAG,
     payload: data
