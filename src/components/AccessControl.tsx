@@ -2,19 +2,22 @@ import React from "react";
 import { connect } from "react-redux";
 import { accessRightsChange, AccessRights } from "../actions";
 import "../styles/Card.css";
+import { Admins, Users } from "../actions";
 
 interface AccessControlProps {
-  accessRightsChange?(data: AccessRights): typeof accessRightsChange;
+  accessRightsChange: typeof accessRightsChange;
 }
 
 const ACCESS_RIGHTS: { [key: string]: AccessRights } = {
-  User: { status: "User", level: 0 },
-  Admin_System: { status: "Admin_System", level: 1 },
-  Admin_MRF: { status: "Admin_MRF", level: 2 },
-  Admin_RF: { status: "Admin_RF", level: 3 }
+  User: { status: Users.User, level: 0 },
+  Admin_System: { status: Admins.Admin_System, level: 1 },
+  Admin_MRF: { status: Admins.Admin_MRF, level: 2 },
+  Admin_RF: { status: Admins.Admin_RF, level: 3 }
 };
 
-const AccessControl = ({ accessRightsChange }: any): JSX.Element => (
+const AccessControl = ({
+  accessRightsChange
+}: AccessControlProps): JSX.Element => (
   <div className="access-control__select">
     <select
       name="access"

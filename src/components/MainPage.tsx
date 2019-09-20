@@ -5,10 +5,10 @@ import { deleteFromSelected, togglePin, handleDrag } from "../actions";
 import "../styles/Card.css";
 import { App } from "../actions";
 
-type MainPageProps = {
+interface MainPageProps {
   apps: App[];
-  deleteFromSelected(idx: number): typeof deleteFromSelected;
-};
+  deleteFromSelected: typeof deleteFromSelected;
+}
 
 const MainPage = ({ apps, deleteFromSelected }: MainPageProps): JSX.Element => {
   return (
@@ -33,7 +33,7 @@ const MainPage = ({ apps, deleteFromSelected }: MainPageProps): JSX.Element => {
   );
 };
 
-const mapStateToProps = ({ apps }: { apps: App[] }): any => ({
+const mapStateToProps = ({ apps }: { apps: App[] }): { apps: App[] } => ({
   apps
 });
 

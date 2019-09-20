@@ -2,14 +2,19 @@ import React from "react";
 import { connect } from "react-redux";
 import "../styles/Card.css";
 import cardImages from "../api/superheroes.json";
-import { AccessRights, App } from "../actions";
+import { AccessRights, App, Admins } from "../actions";
+import { StoreState } from "../reducers";
 
 interface AppProps {
   idx: number;
   label: string;
   apps: App[];
-  handleSelect?(e: React.MouseEvent): Function;
-  handleDelete?(e: React.MouseEvent): Function;
+  handleSelect?:
+    | ((event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void)
+    | undefined;
+  handleDelete?:
+    | ((event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void)
+    | undefined;
   accessRights: AccessRights;
   canShowBacketwaste?: boolean;
   onDragStart?(e: React.DragEvent): void;
@@ -69,7 +74,7 @@ const Card = ({
               className={
                 "card__pin " +
                 Object.keys(apps[idx].pinnedBy)
-                  .filter(el => apps[idx].pinnedBy[el] === true)
+                  .filter(el => apps[idx].pinnedBy[el as Admins] === true)
                   .join(" ")
               }
             >
@@ -82,7 +87,7 @@ const Card = ({
   </div>
 );
 
-const mapStateToProps = (state: any) => ({
+const mapStateToProps = (state: StoreState): StoreState => ({
   apps: state.apps,
   accessRights: state.accessRights
 });

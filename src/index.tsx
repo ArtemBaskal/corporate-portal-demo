@@ -6,7 +6,13 @@ import App from "./components/App";
 
 import reducers from "./reducers";
 
-const composeEnhancers = /* window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || */ compose;
+declare global {
+  interface Window {
+    __REDUX_DEVTOOLS_EXTENSION_COMPOSE__: Function;
+  }
+}
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(reducers, composeEnhancers());
 
 // store.subscribe(() => console.log("STORE: ", store.getState()));

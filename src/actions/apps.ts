@@ -1,8 +1,21 @@
 import { ActionTypes } from "./types";
 
+export enum Admins {
+  Admin_System = "Admin_System",
+  Admin_MRF = "Admin_MRF",
+  Admin_RF = "Admin_RF"
+}
+
+export enum Users {
+  User = "User"
+}
+
 export interface PinnedBy {
-  [key: string]: boolean;
-  (level: string): number;
+  [Admins.Admin_System]: boolean;
+  [Admins.Admin_MRF]: boolean;
+  [Admins.Admin_RF]: boolean;
+  // [key: string]: keyof Admins;
+  level: number;
 }
 
 export interface App {
@@ -14,14 +27,14 @@ export interface App {
 }
 
 export interface AccessRights {
-  status: string;
+  status: Admins | Users;
   level: number;
 }
 
-// export interface User {
-//   status: string;
-//   level: number;
-// }
+export interface TogglePinPayload {
+  idx: number;
+  accessRights: AccessRights;
+}
 
 export interface HandleByIdAction {
   type:
@@ -38,7 +51,7 @@ export interface AccessRightsChangeAction {
 
 export interface TogglePinAction {
   type: ActionTypes.TOGGLE_PIN;
-  payload: { idx: number; accessRights: AccessRights };
+  payload: TogglePinPayload;
 }
 
 export interface HandleDragAction {
@@ -76,10 +89,10 @@ export const accessRightsChange = (
   };
 };
 
-export const togglePin = (
-  idx: number,
-  accessRights: AccessRights
-): TogglePinAction => {
+export const togglePin = ({
+  idx,
+  accessRights
+}: TogglePinPayload): TogglePinAction => {
   return {
     type: ActionTypes.TOGGLE_PIN,
     payload: { idx, accessRights }

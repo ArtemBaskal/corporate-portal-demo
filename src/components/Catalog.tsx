@@ -5,7 +5,9 @@ import {
   selectFromCatalog,
   deleteFromCatalog,
   togglePin,
-  handleDrag
+  handleDrag,
+  HandleByIdAction,
+  TogglePinAction
 } from "../actions";
 import { App, AccessRights } from "../actions";
 import { StoreState } from "../reducers";
@@ -13,13 +15,21 @@ import { StoreState } from "../reducers";
 interface CatalogProps {
   accessRights: AccessRights;
   apps: App[];
-  selectFromCatalog(idx: number): typeof selectFromCatalog;
-  deleteFromCatalog(idx: number): typeof deleteFromCatalog;
-  togglePin(idx: number, access: AccessRights): typeof togglePin;
-  handleDrag(app: App[]): typeof handleDrag;
+  selectFromCatalog: typeof selectFromCatalog;
+  deleteFromCatalog: typeof deleteFromCatalog;
+  togglePin: typeof togglePin;
+  handleDrag: typeof handleDrag;
 }
 
 class Catalog extends React.Component<CatalogProps> {
+  constructor(
+    props: CatalogProps,
+    private draggedItem?: App,
+    private draggedIdx?: number | null
+  ) {
+    super(props);
+  }
+
   onDragStart = (e: React.DragEvent, idx: number): void => {
     const {
       accessRights: { status }
@@ -42,7 +52,7 @@ class Catalog extends React.Component<CatalogProps> {
 
       let items = apps.filter(item => item !== this.draggedItem);
 
-      items.splice(idx, 0, this.draggedItem);
+      this.draggedItem && items.splice(idx, 0, this.draggedItem);
 
       handleDrag(items);
     }
@@ -54,10 +64,6 @@ class Catalog extends React.Component<CatalogProps> {
       this.draggedIdx = null;
     }
   };
-  // draggedItem: App;
-  // draggedIdx: number | void;
-  draggedItem: any;
-  draggedIdx: any;
 
   render() {
     const {
@@ -80,14 +86,16 @@ class Catalog extends React.Component<CatalogProps> {
                 label={card.label.toString()}
                 key={card.label}
                 canShowBacketwaste
-                handleSelect={(e: React.MouseEvent) => {
+                handleSelect={(
+                  e: React.MouseEvent
+                ): TogglePinAction | HandleByIdAction => {
                   e.stopPropagation();
                   if (
                     accessRights &&
                     accessRights.status &&
                     accessRights.status.slice(0, 5) === "Admin"
                   )
-                    return togglePin(idx, accessRights);
+                    return togglePin({ idx, accessRights });
                   return selectFromCatalog(idx);
                 }}
                 handleDelete={(e: React.MouseEvent) => {
@@ -102,12 +110,12 @@ class Catalog extends React.Component<CatalogProps> {
   }
 }
 
-const mapStateToProps = ({ accessRights, apps }: any): StoreState => ({
+const mapStateToProps = ({ accessRights, apps }: CatalogProps): StoreState => ({
   accessRights,
   apps
 });
 
-export default connect<StoreState, {}, CatalogProps>(
+export default connect(
   mapStateToProps,
   {
     selectFromCatalog,
