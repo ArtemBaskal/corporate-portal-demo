@@ -1,10 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { Provider } from "react-redux";
-import { createStore, compose } from "redux";
+import { compose } from "redux";
 import App from "./components/App";
-
-import reducers from "./reducers";
+import Root from "./Root";
 
 declare global {
   interface Window {
@@ -13,13 +11,12 @@ declare global {
 }
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const store = createStore(reducers, composeEnhancers());
 
 // store.subscribe(() => console.log("STORE: ", store.getState()));
 
 ReactDOM.render(
-  <Provider store={store}>
+  <Root enhancer={composeEnhancers}>
     <App />
-  </Provider>,
+  </Root>,
   document.getElementById("root")
 );

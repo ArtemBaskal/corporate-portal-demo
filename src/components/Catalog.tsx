@@ -1,4 +1,4 @@
-import React, { DragEvent } from "react";
+import React from "react";
 import Card from "./Card";
 import { connect } from "react-redux";
 import {
@@ -25,8 +25,6 @@ interface CatalogProps {
 class Catalog extends React.Component<CatalogProps> {
   constructor(
     props: CatalogProps,
-    // private draggedItem: App,
-    // private draggedOverItem?: App,
     private draggedIdx?: number | null,
     private draggedOverIdx?: number | null
   ) {
@@ -35,8 +33,7 @@ class Catalog extends React.Component<CatalogProps> {
 
   onDragStart = (e: React.DragEvent, idx: number): void => {
     const {
-      accessRights: { status },
-      apps
+      accessRights: { status }
     } = this.props;
 
     if (status && status.slice(0, 5) === "Admin") {
