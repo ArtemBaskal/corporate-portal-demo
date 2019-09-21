@@ -22,9 +22,7 @@ const AccessControl = ({
     <select
       name="access"
       id="access"
-      onChange={e =>
-        accessRightsChange && accessRightsChange(ACCESS_RIGHTS[e.target.value])
-      }
+      onChange={e => accessRightsChange(ACCESS_RIGHTS[e.target.value])}
     >
       {Object.values(ACCESS_RIGHTS).map(({ status }) => (
         <option key={status}>{status}</option>

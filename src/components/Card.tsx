@@ -55,6 +55,7 @@ const Card = ({
               &#10060;
             </span>
           )}
+
         {apps[idx] && apps[idx].isSelected && (
           <span className="card__check">&#10003;</span>
         )}
