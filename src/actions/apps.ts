@@ -19,7 +19,7 @@ export interface PinnedBy {
 
 export interface App {
   order: number;
-  label: number;
+  label: string;
   isSelected: boolean;
   pinnedBy: PinnedBy;
   isInCatalog: boolean;
@@ -35,7 +35,7 @@ export interface AccessRights {
 }
 
 export interface TogglePinPayload {
-  idx: number;
+  label: string;
   accessRights: AccessRights;
 }
 
@@ -44,7 +44,7 @@ export interface HandleByIdAction {
     | ActionTypes.TOGGLE_SELECT
     | ActionTypes.DELETE_FROM_SELECTED
     | ActionTypes.DELETE_FROM_CATALOG;
-  payload: number;
+  payload: string;
 }
 
 export interface AccessRightsChangeAction {
@@ -62,21 +62,21 @@ export interface HandleDragAction {
   payload: STATE;
 }
 
-export const selectFromCatalog = (id: number): HandleByIdAction => {
+export const selectFromCatalog = (id: string): HandleByIdAction => {
   return {
     type: ActionTypes.TOGGLE_SELECT,
     payload: id
   };
 };
 
-export const deleteFromSelected = (id: number): HandleByIdAction => {
+export const deleteFromSelected = (id: string): HandleByIdAction => {
   return {
     type: ActionTypes.DELETE_FROM_SELECTED,
     payload: id
   };
 };
 
-export const deleteFromCatalog = (id: number): HandleByIdAction => {
+export const deleteFromCatalog = (id: string): HandleByIdAction => {
   return {
     type: ActionTypes.DELETE_FROM_CATALOG,
     payload: id
@@ -93,12 +93,12 @@ export const accessRightsChange = (
 };
 
 export const togglePin = ({
-  idx,
+  label,
   accessRights
 }: TogglePinPayload): TogglePinAction => {
   return {
     type: ActionTypes.TOGGLE_PIN,
-    payload: { idx, accessRights }
+    payload: { label, accessRights }
   };
 };
 

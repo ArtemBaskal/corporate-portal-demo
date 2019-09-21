@@ -9,9 +9,9 @@ import {
 import p from "immer";
 
 const INITAL_STATE = {
-  "0": {
+  Аквамен: {
     order: 0,
-    label: 0,
+    label: "Аквамен",
     isSelected: true,
     pinnedBy: {
       Admin_System: false,
@@ -21,9 +21,9 @@ const INITAL_STATE = {
     },
     isInCatalog: true
   },
-  "1": {
+  Бэтмен: {
     order: 1,
-    label: 1,
+    label: "Бэтмен",
     isSelected: true,
     pinnedBy: {
       Admin_System: false,
@@ -33,9 +33,9 @@ const INITAL_STATE = {
     },
     isInCatalog: true
   },
-  "2": {
+  Киборг: {
     order: 2,
-    label: 2,
+    label: "Киборг",
     isSelected: true,
     pinnedBy: {
       Admin_System: true,
@@ -45,9 +45,9 @@ const INITAL_STATE = {
     },
     isInCatalog: true
   },
-  "3": {
+  Флэш: {
     order: 3,
-    label: 3,
+    label: "Флэш",
     isSelected: true,
     pinnedBy: {
       Admin_System: false,
@@ -57,9 +57,9 @@ const INITAL_STATE = {
     },
     isInCatalog: true
   },
-  "4": {
+  "Зелёный Фонарь": {
     order: 4,
-    label: 4,
+    label: "Зелёный Фонарь",
     isSelected: true,
     pinnedBy: {
       Admin_System: false,
@@ -69,9 +69,9 @@ const INITAL_STATE = {
     },
     isInCatalog: true
   },
-  "5": {
+  Супергёрл: {
     order: 5,
-    label: 5,
+    label: "Супергёрл",
     isSelected: true,
     pinnedBy: {
       Admin_System: false,
@@ -81,9 +81,9 @@ const INITAL_STATE = {
     },
     isInCatalog: true
   },
-  "6": {
+  Супермен: {
     order: 6,
-    label: 6,
+    label: "Супермен",
     isSelected: false,
     pinnedBy: {
       Admin_System: false,
@@ -93,9 +93,9 @@ const INITAL_STATE = {
     },
     isInCatalog: true
   },
-  "7": {
+  "Чудо-женщина": {
     order: 7,
-    label: 7,
+    label: "Чудо-женщина",
     isSelected: false,
     pinnedBy: {
       Admin_System: false,
@@ -105,9 +105,9 @@ const INITAL_STATE = {
     },
     isInCatalog: true
   },
-  "8": {
+  "Чёрная Пантера": {
     order: 8,
-    label: 8,
+    label: "Чёрная Пантера",
     isSelected: false,
     pinnedBy: {
       Admin_System: false,
@@ -117,9 +117,9 @@ const INITAL_STATE = {
     },
     isInCatalog: true
   },
-  "9": {
+  "Капитан Америка": {
     order: 9,
-    label: 9,
+    label: "Капитан Америка",
     isSelected: false,
     pinnedBy: {
       Admin_System: false,
@@ -129,9 +129,9 @@ const INITAL_STATE = {
     },
     isInCatalog: true
   },
-  "10": {
+  Сорвиголова: {
     order: 10,
-    label: 10,
+    label: "Сорвиголова",
     isSelected: false,
     pinnedBy: {
       Admin_System: false,
@@ -141,9 +141,9 @@ const INITAL_STATE = {
     },
     isInCatalog: true
   },
-  "11": {
+  "Доктор Стрэндж": {
     order: 11,
-    label: 11,
+    label: "Доктор Стрэндж",
     isSelected: false,
     pinnedBy: {
       Admin_System: false,
@@ -153,9 +153,9 @@ const INITAL_STATE = {
     },
     isInCatalog: true
   },
-  "12": {
+  Халк: {
     order: 12,
-    label: 12,
+    label: "Халк",
     isSelected: false,
     pinnedBy: {
       Admin_System: false,
@@ -165,9 +165,9 @@ const INITAL_STATE = {
     },
     isInCatalog: true
   },
-  "13": {
+  "Железнй Человек": {
     order: 13,
-    label: 13,
+    label: "Железнй Человек",
     isSelected: false,
     pinnedBy: {
       Admin_System: false,
@@ -177,9 +177,9 @@ const INITAL_STATE = {
     },
     isInCatalog: true
   },
-  "14": {
+  "Человек-паук": {
     order: 14,
-    label: 14,
+    label: "Человек-паук",
     isSelected: false,
     pinnedBy: {
       Admin_System: false,
@@ -189,45 +189,9 @@ const INITAL_STATE = {
     },
     isInCatalog: true
   },
-  "15": {
+  Тор: {
     order: 15,
-    label: 15,
-    isSelected: false,
-    pinnedBy: {
-      Admin_System: false,
-      Admin_MRF: false,
-      Admin_RF: false,
-      level: 0
-    },
-    isInCatalog: true
-  },
-  "16": {
-    order: 16,
-    label: 16,
-    isSelected: false,
-    pinnedBy: {
-      Admin_System: false,
-      Admin_MRF: false,
-      Admin_RF: false,
-      level: 0
-    },
-    isInCatalog: true
-  },
-  "17": {
-    order: 17,
-    label: 17,
-    isSelected: false,
-    pinnedBy: {
-      Admin_System: false,
-      Admin_MRF: false,
-      Admin_RF: false,
-      level: 0
-    },
-    isInCatalog: true
-  },
-  "18": {
-    order: 18,
-    label: 18,
+    label: "Тор",
     isSelected: false,
     pinnedBy: {
       Admin_System: false,
@@ -247,8 +211,8 @@ export default p((state: STATE = INITAL_STATE, action: Action) => {
     }
 
     case ActionTypes.DELETE_FROM_SELECTED: {
-      state[Number(payload)].isSelected = false;
-      state[Number(payload)].pinnedBy = {
+      state[payload as string].isSelected = false;
+      state[payload as string].pinnedBy = {
         Admin_System: false,
         Admin_MRF: false,
         Admin_RF: false,
@@ -259,9 +223,9 @@ export default p((state: STATE = INITAL_STATE, action: Action) => {
     }
 
     case ActionTypes.DELETE_FROM_CATALOG:
-      state[Number(payload)].isSelected = false;
-      state[Number(payload)].isInCatalog = false;
-      state[Number(payload)].pinnedBy = {
+      state[payload as string].isSelected = false;
+      state[payload as string].isInCatalog = false;
+      state[payload as string].pinnedBy = {
         Admin_System: false,
         Admin_MRF: false,
         Admin_RF: false,
@@ -271,22 +235,23 @@ export default p((state: STATE = INITAL_STATE, action: Action) => {
       return state;
 
     case ActionTypes.TOGGLE_SELECT:
-      state[Number(payload)].isSelected = !state[Number(payload)].isSelected;
+      state[payload as string].isSelected = !state[payload as string]
+        .isSelected;
 
       return state;
 
     case ActionTypes.TOGGLE_PIN:
       const {
-        idx,
+        label,
         accessRights: { status, level }
       } = payload as TogglePinPayload;
 
-      let prevLevel = state[idx].pinnedBy.level;
+      let prevLevel = state[label].pinnedBy.level;
 
-      state[idx].pinnedBy[status as Admins] = !state[idx].pinnedBy[
+      state[label].pinnedBy[status as Admins] = !state[label].pinnedBy[
         status as Admins
       ];
-      state[idx].pinnedBy.level = level > prevLevel ? level : prevLevel;
+      state[label].pinnedBy.level = level > prevLevel ? level : prevLevel;
 
       return state;
 

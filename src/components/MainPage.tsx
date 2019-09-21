@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import Card from "./Card";
 import { deleteFromSelected, togglePin, handleDrag } from "../actions";
 import "../styles/Card.css";
-import { STATE } from "../actions";
+import { STATE, PinnedBy } from "../actions";
 import radixSort from "../helpers/radixSort";
 
 interface MainPageProps {
@@ -15,15 +15,24 @@ const MainPage = ({ apps, deleteFromSelected }: MainPageProps): JSX.Element => {
   return (
     <div className="card-container">
       {radixSort(Object.values(apps) as [], "order", "ASC").map(
-        ({ label, isSelected, pinnedBy }, idx: number) => {
-          if (isSelected || Object.values(pinnedBy).some(el => el === true)) {
+        (
+          {
+            label,
+            isSelected,
+            pinnedBy
+          }: { label?: string; isSelected?: boolean; pinnedBy?: PinnedBy },
+          idx: number
+        ) => {
+          if (
+            isSelected ||
+            Object.values(pinnedBy as PinnedBy).some(el => el === true)
+          ) {
             return (
               <Card
-                idx={idx}
                 key={label}
-                label={label.toString()}
+                label={label as string}
                 isSelected={Boolean(isSelected)}
-                handleDelete={() => deleteFromSelected(idx)}
+                handleDelete={() => deleteFromSelected(label as string)}
               />
             );
           }

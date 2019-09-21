@@ -6,7 +6,6 @@ import { AccessRights, STATE, Admins } from "../actions";
 import { StoreState } from "../reducers";
 
 interface AppProps {
-  idx: number;
   label: string;
   apps: STATE;
   handleSelect?:
@@ -24,7 +23,6 @@ interface AppProps {
 }
 
 const Card = ({
-  idx,
   label,
   apps,
   handleSelect,
@@ -36,7 +34,7 @@ const Card = ({
   onDragEnd
 }: AppProps): JSX.Element => (
   <div>
-    {label.toString() && (
+    {label && (
       <div
         onClick={handleSelect}
         onDragStart={onDragStart}
@@ -46,8 +44,11 @@ const Card = ({
       >
         <img
           className="card__img"
-          src={`${cardImages[Number(label) % (cardImages.length - 1)].image}`}
+          // src={`${cardImages[apps[label].order % (cardImages.length - 1)].image}`}
+          //TODO: change using normalizr
+          src={cardImages.filter(el => el.name === label)[0].image}
         ></img>
+
         {accessRights.status &&
           accessRights.status.slice(0, 5) === "Admin" &&
           !canShowBacketwaste && (
@@ -56,7 +57,7 @@ const Card = ({
             </span>
           )}
 
-        {apps[idx] && apps[idx].isSelected && (
+        {apps[label] && apps[label].isSelected && (
           <span className="card__check">&#10003;</span>
         )}
 
@@ -69,13 +70,13 @@ const Card = ({
             </span>
           )}
 
-        {apps[idx] &&
-          Object.values(apps[idx].pinnedBy).some(el => el === true) && (
+        {apps[label] &&
+          Object.values(apps[label].pinnedBy).some(el => el === true) && (
             <span
               className={
                 "card__pin " +
-                Object.keys(apps[idx].pinnedBy)
-                  .filter(el => apps[idx].pinnedBy[el as Admins] === true)
+                Object.keys(apps[label].pinnedBy)
+                  .filter(el => apps[label].pinnedBy[el as Admins] === true)
                   .join(" ")
               }
             >

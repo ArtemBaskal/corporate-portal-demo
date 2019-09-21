@@ -25,13 +25,13 @@ interface CatalogProps {
 class Catalog extends React.Component<CatalogProps> {
   constructor(
     props: CatalogProps,
-    private draggedIdx?: number | null,
-    private draggedOverIdx?: number | null
+    private draggedIdx?: string | null,
+    private draggedOverIdx?: string | null
   ) {
     super(props);
   }
 
-  onDragStart = (e: React.DragEvent, idx: number): void => {
+  onDragStart = (e: React.DragEvent, idx: string): void => {
     const {
       accessRights: { status }
     } = this.props;
@@ -43,7 +43,7 @@ class Catalog extends React.Component<CatalogProps> {
     }
   };
 
-  onDragOver = (idx: number): void => {
+  onDragOver = (idx: string): void => {
     const { accessRights, apps, handleDrag } = this.props;
     if (accessRights.status && accessRights.status.slice(0, 5) === "Admin") {
       this.draggedOverIdx = idx;
@@ -54,20 +54,9 @@ class Catalog extends React.Component<CatalogProps> {
 
       const items = JSON.parse(JSON.stringify(apps));
 
-      [
-        items[idx].order,
-        items[this.draggedIdx as number].order,
-        items[idx],
-        items[this.draggedIdx as number],
-        this.draggedIdx,
-        this.draggedOverIdx
-      ] = [
-        items[this.draggedIdx as number].order,
-        items[idx].order,
-        items[this.draggedIdx as number],
-        items[idx],
-        this.draggedOverIdx,
-        this.draggedIdx
+      [items[idx].order, items[this.draggedIdx as string].order] = [
+        items[this.draggedIdx as string].order,
+        items[idx].order
       ];
 
       handleDrag(items);
@@ -93,15 +82,16 @@ class Catalog extends React.Component<CatalogProps> {
     return (
       <div className="card-container">
         {radixSort(Object.values(apps) as [], "order", "ASC").map(
-          (app, idx) =>
-            app.isInCatalog && (
+          ({ isInCatalog, label }: { isInCatalog?: boolean; label?: string }) =>
+            isInCatalog && (
               <Card
-                onDragStart={(e: React.DragEvent) => this.onDragStart(e, idx)}
-                onDragOver={() => this.onDragOver(idx)}
+                onDragStart={(e: React.DragEvent) =>
+                  this.onDragStart(e, label as string)
+                }
+                onDragOver={() => this.onDragOver(label as string)}
                 onDragEnd={this.onDragEnd}
-                idx={idx}
-                label={app.label.toString()}
-                key={app.label.toString()}
+                label={label as string}
+                key={label as string}
                 canShowBacketwaste
                 handleSelect={(
                   e: React.MouseEvent
@@ -112,12 +102,15 @@ class Catalog extends React.Component<CatalogProps> {
                     accessRights.status &&
                     accessRights.status.slice(0, 5) === "Admin"
                   )
-                    return togglePin({ idx, accessRights });
-                  return selectFromCatalog(idx);
+                    return togglePin({
+                      label: label as string,
+                      accessRights
+                    });
+                  return selectFromCatalog(label as string);
                 }}
                 handleDelete={(e: React.MouseEvent) => {
                   e.stopPropagation();
-                  return deleteFromCatalog(idx);
+                  return deleteFromCatalog(label as string);
                 }}
               />
             )
