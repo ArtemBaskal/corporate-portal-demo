@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { connect } from "react-redux";
 import { AccessRights, STATE, Admins } from "../actions";
 import { StoreState } from "../reducers";
@@ -34,26 +34,14 @@ const Card = ({
 }: AppProps): JSX.Element => (
   <div>
     {label && (
-      <div
-        onClick={handleSelect}
-        className="card"
-        onDragStart={onDragStart}
-        onDragOver={onDragOver}
-        onDragEnd={onDragEnd}
-      >
+      <div onClick={handleSelect} className="card">
         <svg width="100" height="100">
           <image
             className="card__img"
             href={`${process.env.PUBLIC_URL}/SVG/${label}.svg`}
           />
         </svg>
-        {/* <img
-          className="card__img"
-          // src={`${cardImages[apps[label].order % (cardImages.length - 1)].image}`}
-          //TODO: change using normalizr
-          src={apple}
-          // src={cardImages.filter(el => el.name === label)[0].image}
-        ></img> */}
+
         {accessRights.status &&
           accessRights.status.slice(0, 5) === "Admin" &&
           !canShowBacketwaste && (
@@ -61,6 +49,7 @@ const Card = ({
               &#10060;
             </span>
           )}
+
         {apps[label] && apps[label].isSelected && (
           <span className="card__check">&#10003;</span>
         )}
@@ -68,10 +57,20 @@ const Card = ({
           accessRights.status.slice(0, 5) === "Admin" &&
           accessRights.level > 0 &&
           canShowBacketwaste && (
-            <span className="card__basketwaste" onClick={handleDelete}>
-              &#x2612;
-            </span>
+            <Fragment>
+              <span className="card__basketwaste" onClick={handleDelete}>
+                &#x2612;
+              </span>
+              <img
+                className="card__drag"
+                src={`${process.env.PUBLIC_URL}/drag-and-drop.png`}
+                onDragStart={onDragStart}
+                onDragOver={onDragOver}
+                onDragEnd={onDragEnd}
+              />
+            </Fragment>
           )}
+
         {apps[label] &&
           Object.values(apps[label].pinnedBy).some(el => el === true) && (
             <span

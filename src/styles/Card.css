@@ -123,6 +123,20 @@ body {
   right: -2rem;
   top: -2.7rem;
 }
+
+.card__drag {
+  cursor: grabbing;
+  display: block;
+  height: 4rem;
+  position: absolute;
+  left: -1rem;
+  top: -1rem;
+  z-index: 4;
+}
+.card:hover .card__drag {
+  transform: scale(1.5);
+}
+
 .Admin_System {
   font-size: 2.5rem;
   filter: invert(50%);
@@ -159,7 +173,6 @@ body {
 
 .card:active {
   transform: scale(1.02);
-  cursor: grabbing;
 }
 
 .card:active .card__basketwaste {
