@@ -38,6 +38,10 @@ export interface TogglePinPayload {
   label: string;
   accessRights: AccessRights;
 }
+export interface HandleDragPayload {
+  idx: string;
+  draggedIdx: string;
+}
 
 export interface HandleByIdAction {
   type:
@@ -59,7 +63,7 @@ export interface TogglePinAction {
 
 export interface HandleDragAction {
   type: ActionTypes.DRAG;
-  payload: STATE;
+  payload: HandleDragPayload;
 }
 
 export const selectFromCatalog = (id: string): HandleByIdAction => {
@@ -102,9 +106,12 @@ export const togglePin = ({
   };
 };
 
-export const handleDrag = (data: STATE): HandleDragAction => {
+export const handleDrag = ({
+  idx,
+  draggedIdx
+}: HandleDragPayload): HandleDragAction => {
   return {
     type: ActionTypes.DRAG,
-    payload: data
+    payload: { idx, draggedIdx }
   };
 };

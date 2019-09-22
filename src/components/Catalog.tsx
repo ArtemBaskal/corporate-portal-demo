@@ -12,6 +12,7 @@ import {
 import { STATE, AccessRights } from "../actions";
 import { StoreState } from "../reducers";
 import radixSort from "../helpers/radixSort";
+import p from "immer";
 
 interface CatalogProps {
   accessRights: AccessRights;
@@ -52,14 +53,7 @@ class Catalog extends React.Component<CatalogProps> {
         return;
       }
 
-      const items = JSON.parse(JSON.stringify(apps));
-
-      [items[idx].order, items[this.draggedIdx as string].order] = [
-        items[this.draggedIdx as string].order,
-        items[idx].order
-      ];
-
-      handleDrag(items);
+      handleDrag({ idx, draggedIdx: this.draggedIdx as string });
     }
     return;
   };

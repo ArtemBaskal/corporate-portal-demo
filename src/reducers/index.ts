@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import selectedItemsReducer from "./selectedItemsReducer";
+import selectedAppsReducer from "./selectedAppsReducer";
 import accessRightsReducer from "./accessRightsReducer";
 import { STATE, AccessRights } from "../actions";
 
@@ -9,6 +9,6 @@ export interface StoreState {
 }
 
 export default combineReducers<StoreState>({
-  apps: selectedItemsReducer,
+  apps: selectedAppsReducer,
   accessRights: accessRightsReducer
 });
