@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/Corporate-Portal/static/css/main.04cffb31.chunk.css",
+    "main.css": "/Corporate-Portal/static/css/main.69e5012a.chunk.css",
     "main.js": "/Corporate-Portal/static/js/main.8300c8dd.chunk.js",
     "main.js.map": "/Corporate-Portal/static/js/main.8300c8dd.chunk.js.map",
     "runtime~main.js": "/Corporate-Portal/static/js/runtime~main.131fd1fb.js",
@@ -8,8 +8,8 @@
     "static/js/2.65751f65.chunk.js": "/Corporate-Portal/static/js/2.65751f65.chunk.js",
     "static/js/2.65751f65.chunk.js.map": "/Corporate-Portal/static/js/2.65751f65.chunk.js.map",
     "index.html": "/Corporate-Portal/index.html",
-    "precache-manifest.d8dca159ade8cb72ef99454ff8f98c5d.js": "/Corporate-Portal/precache-manifest.d8dca159ade8cb72ef99454ff8f98c5d.js",
+    "precache-manifest.7a596405aef8802140a289a78bdf531b.js": "/Corporate-Portal/precache-manifest.7a596405aef8802140a289a78bdf531b.js",
     "service-worker.js": "/Corporate-Portal/service-worker.js",
-    "static/css/main.04cffb31.chunk.css.map": "/Corporate-Portal/static/css/main.04cffb31.chunk.css.map"
+    "static/css/main.69e5012a.chunk.css.map": "/Corporate-Portal/static/css/main.69e5012a.chunk.css.map"
   }
 }
