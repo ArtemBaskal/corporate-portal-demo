@@ -31,7 +31,7 @@ class Catalog extends React.Component<CatalogProps> {
     super(props);
   }
 
-  onDragStart = (e: React.DragEvent, idx: string): void => {
+  onDragStart = (e: any, idx: string): void => {
     const {
       accessRights: { status }
     } = this.props;
@@ -39,7 +39,7 @@ class Catalog extends React.Component<CatalogProps> {
     if (status && status.slice(0, 5) === "Admin") {
       this.draggedIdx = idx;
       e.dataTransfer.effectAllowed = "grabbing";
-      e.dataTransfer.setDragImage(e.target as HTMLElement, 50, 50);
+      e.dataTransfer.setDragImage(e.target.parentNode, 50, 50);
     }
   };
 

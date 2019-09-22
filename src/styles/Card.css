@@ -65,20 +65,21 @@ body {
 }
 
 .card__img {
-  overflow: hidden;
+  /* overflow: hidden; */
   width: 10rem;
-  height: 10rem;
-  border-radius: 30%;
-  border-top-right-radius: 0;
-  border-bottom-left-radius: 0;
-  object-fit: cover;
-  object-position: 0rem -0.5rem;
+  /* height: 10rem; */
+  /* border-radius: 30%; */
+  /* border-top-right-radius: 0;
+  border-bottom-left-radius: 0; */
+  /* object-fit: cover; */
+  /* object-position: 0rem -0.5rem; */
 }
 
 .card__title {
   bottom: -2rem;
   font-size: 1.1rem;
   position: absolute;
+  user-select: all;
 }
 
 .card__cross {

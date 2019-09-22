@@ -1,9 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
-import "../styles/Card.css";
-import cardImages from "../api/superheroes.json";
 import { AccessRights, STATE, Admins } from "../actions";
 import { StoreState } from "../reducers";
+import "../styles/Card.css";
 
 interface AppProps {
   label: string;
@@ -37,18 +36,24 @@ const Card = ({
     {label && (
       <div
         onClick={handleSelect}
+        className="card"
         onDragStart={onDragStart}
         onDragOver={onDragOver}
         onDragEnd={onDragEnd}
-        className="card"
       >
-        <img
+        <svg width="100" height="100">
+          <image
+            className="card__img"
+            href={`${process.env.PUBLIC_URL}/SVG/${label}.svg`}
+          />
+        </svg>
+        {/* <img
           className="card__img"
           // src={`${cardImages[apps[label].order % (cardImages.length - 1)].image}`}
           //TODO: change using normalizr
-          src={cardImages.filter(el => el.name === label)[0].image}
-        ></img>
-
+          src={apple}
+          // src={cardImages.filter(el => el.name === label)[0].image}
+        ></img> */}
         {accessRights.status &&
           accessRights.status.slice(0, 5) === "Admin" &&
           !canShowBacketwaste && (
@@ -56,11 +61,9 @@ const Card = ({
               &#10060;
             </span>
           )}
-
         {apps[label] && apps[label].isSelected && (
           <span className="card__check">&#10003;</span>
         )}
-
         {accessRights.status &&
           accessRights.status.slice(0, 5) === "Admin" &&
           accessRights.level > 0 &&
@@ -69,7 +72,6 @@ const Card = ({
               &#x2612;
             </span>
           )}
-
         {apps[label] &&
           Object.values(apps[label].pinnedBy).some(el => el === true) && (
             <span
@@ -83,7 +85,9 @@ const Card = ({
               &#x1F4CC;
             </span>
           )}
-        <h1 className="card__title">{label}</h1>
+        <h1 className="card__title">
+          {label[0].toUpperCase() + label.slice(1)}
+        </h1>
       </div>
     )}
   </div>
