@@ -9,8 +9,32 @@ import {
 import p from "immer";
 
 const INITAL_STATE = {
-  angular: {
+  react: {
     order: 0,
+    label: "react",
+    isSelected: false,
+    pinnedBy: {
+      Admin_System: false,
+      Admin_MRF: false,
+      Admin_RF: false,
+      level: 0
+    },
+    isInCatalog: true
+  },
+  "vue-dot-js": {
+    order: 1,
+    label: "vue-dot-js",
+    isSelected: false,
+    pinnedBy: {
+      Admin_System: false,
+      Admin_MRF: false,
+      Admin_RF: false,
+      level: 0
+    },
+    isInCatalog: true
+  },
+  angular: {
+    order: 2,
     label: "angular",
     isSelected: true,
     pinnedBy: {
@@ -21,30 +45,7 @@ const INITAL_STATE = {
     },
     isInCatalog: true
   },
-  apple: {
-    order: 1,
-    label: "apple",
-    isSelected: true,
-    pinnedBy: {
-      Admin_System: false,
-      Admin_MRF: true,
-      Admin_RF: false,
-      level: 2
-    },
-    isInCatalog: true
-  },
-  appleMusic: {
-    order: 2,
-    label: "appleMusic",
-    isSelected: true,
-    pinnedBy: {
-      Admin_System: true,
-      Admin_MRF: false,
-      Admin_RF: false,
-      level: 1
-    },
-    isInCatalog: true
-  },
+
   bitcoin: {
     order: 3,
     label: "bitcoin",
@@ -357,15 +358,16 @@ const INITAL_STATE = {
     },
     isInCatalog: true
   },
-  react: {
+
+  youtube: {
     order: 29,
-    label: "react",
+    label: "youtube",
     isSelected: false,
     pinnedBy: {
-      Admin_System: false,
+      Admin_System: true,
       Admin_MRF: false,
       Admin_RF: false,
-      level: 0
+      level: 1
     },
     isInCatalog: true
   },
@@ -453,15 +455,15 @@ const INITAL_STATE = {
     },
     isInCatalog: true
   },
-  "vue-dot-js": {
+  apple: {
     order: 37,
-    label: "vue-dot-js",
-    isSelected: false,
+    label: "apple",
+    isSelected: true,
     pinnedBy: {
       Admin_System: false,
-      Admin_MRF: false,
+      Admin_MRF: true,
       Admin_RF: false,
-      level: 0
+      level: 2
     },
     isInCatalog: true
   },
@@ -480,18 +482,6 @@ const INITAL_STATE = {
   yandex: {
     order: 39,
     label: "yandex",
-    isSelected: false,
-    pinnedBy: {
-      Admin_System: false,
-      Admin_MRF: false,
-      Admin_RF: false,
-      level: 0
-    },
-    isInCatalog: true
-  },
-  youtube: {
-    order: 40,
-    label: "youtube",
     isSelected: false,
     pinnedBy: {
       Admin_System: false,
