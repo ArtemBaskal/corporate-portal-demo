@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/Corporate-Portal/static/css/main.b2d0439a.chunk.css",
-    "main.js": "/Corporate-Portal/static/js/main.c3f6cc09.chunk.js",
-    "main.js.map": "/Corporate-Portal/static/js/main.c3f6cc09.chunk.js.map",
+    "main.js": "/Corporate-Portal/static/js/main.acc1feb3.chunk.js",
+    "main.js.map": "/Corporate-Portal/static/js/main.acc1feb3.chunk.js.map",
     "runtime~main.js": "/Corporate-Portal/static/js/runtime~main.131fd1fb.js",
     "runtime~main.js.map": "/Corporate-Portal/static/js/runtime~main.131fd1fb.js.map",
     "static/js/2.65751f65.chunk.js": "/Corporate-Portal/static/js/2.65751f65.chunk.js",
     "static/js/2.65751f65.chunk.js.map": "/Corporate-Portal/static/js/2.65751f65.chunk.js.map",
     "index.html": "/Corporate-Portal/index.html",
-    "precache-manifest.14dfe475f32e3627d1f8d6ff37eaf9bb.js": "/Corporate-Portal/precache-manifest.14dfe475f32e3627d1f8d6ff37eaf9bb.js",
+    "precache-manifest.851124bd06941d924ab0fd3c0e67b769.js": "/Corporate-Portal/precache-manifest.851124bd06941d924ab0fd3c0e67b769.js",
     "service-worker.js": "/Corporate-Portal/service-worker.js",
     "static/css/main.b2d0439a.chunk.css.map": "/Corporate-Portal/static/css/main.b2d0439a.chunk.css.map"
   }
