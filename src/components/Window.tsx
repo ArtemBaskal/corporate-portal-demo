@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import cn from "classnames"
 
-function getCoords(elem) {
+function getCoords(elem: HTMLElement) {
     const box = elem.getBoundingClientRect();
     return {
         top: box.top + window.pageYOffset,
@@ -14,31 +14,31 @@ class Window extends Component {
         isSmall: true,
         isVisible: true
     }
-    handleMouseDown = e => {
-        let dragElement = e.target;
-        let coords = getCoords(dragElement);
+    handleMouseDown = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+        let dragElement = e.target as any;
+        let coords = getCoords(dragElement as HTMLElement);
         let shiftX = e.pageX - coords.left;
         let shiftY = e.pageY - coords.top;
 
         moveAt(e);
 
-        function moveAt(e) {
+        function moveAt(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
             dragElement.style.left = e.pageX - shiftX + "px";
             dragElement.style.top = e.pageY - shiftY + "px"
         }
 
-        const eventMoveAt = function (e) {
+        const eventMoveAt = function (e: any) {
             return moveAt(e);
         };
 
         document.addEventListener("mousemove", eventMoveAt);
 
-        dragElement.addEventListener("mouseup", () => {
-            document.removeEventListener("mousemove", eventMoveAt);
-            dragElement.removeEventListener("mouseup", eventMoveAt);
+        dragElement!.addEventListener("mouseup", () => {
+            document.removeEventListener("mousemove", eventMoveAt!);
+            dragElement!.removeEventListener("mouseup", eventMoveAt);
         });
 
-        dragElement.addEventListener("dragstart", () => false);
+        dragElement!.addEventListener("dragstart", () => false);
     };
 
     render() {
@@ -48,11 +48,10 @@ class Window extends Component {
             'draggable-window--large': !isSmall && isVisible,
             'draggable-window--hidden': !isVisible,
         });
-        return (
-            <div
-                onMouseDown={this.handleMouseDown}
-                className={windowClass}
-            >
+        return <div
+            onMouseDown={this.handleMouseDown}
+            className={windowClass}
+        >
                     <span
                         role="icon"
                         className="draggable-window__controls">
@@ -60,13 +59,14 @@ class Window extends Component {
                             <image
                                 className="card__img"
                                 href={`${process.env.PUBLIC_URL}/SVG/icon-cross.svg`}
-                                onClick={e => e.target.parentElement.parentElement.parentElement.style.display = "none"}
+                                // @ts-ignore
+                                onClick={(e: Event) => e.target.parentElement.parentElement.parentElement.style.display = "none"}
                             />
                     </svg>
                     </span>
-                <span
-                    role="icon"
-                    className="draggable-window__controls">
+            <span
+                role="icon"
+                className="draggable-window__controls">
                         <svg width="10" height="10">
                              <image
                                  className="card__img"
@@ -75,9 +75,9 @@ class Window extends Component {
                              />
                     </svg>
                     </span>
-                <span
-                    role="icon"
-                    className="draggable-window__controls">
+            <span
+                role="icon"
+                className="draggable-window__controls">
                         <svg width="10" height="10">
                             <image
                                 className="card__img"
@@ -86,10 +86,9 @@ class Window extends Component {
                             />
                     </svg>
                     </span>
-                <br/>
-                Initial test vanilla draggable window
-            </div>
-        );
+            <br/>
+            Initial test vanilla draggable window
+        </div>;
     }
 }
 
