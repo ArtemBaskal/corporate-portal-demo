@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import cn from "classnames"
 
 function getCoords(elem) {
     const box = elem.getBoundingClientRect();
@@ -42,13 +43,15 @@ class Window extends Component {
 
     render() {
         const {isSmall, isVisible} = this.state;
+        const windowClass = cn({
+            'draggable-window': isSmall && isVisible,
+            'draggable-window--large': !isSmall && isVisible,
+            'draggable-window--hidden': !isVisible,
+        });
         return (
             <div
                 onMouseDown={this.handleMouseDown}
-                className={isSmall && isVisible && "draggable-window"
-                || !isSmall && isVisible && "draggable-window--large"
-                || !isVisible && "draggable-window--hidden"
-                }
+                className={windowClass}
             >
                     <span
                         role="icon"

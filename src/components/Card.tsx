@@ -1,9 +1,10 @@
 import React, {Fragment, useState} from "react";
 import {connect} from "react-redux";
-import {AccessRights, STATE, Admins} from "../actions";
+import {AccessRights, STATE, Admins, Users} from "../actions";
 import {StoreState} from "../reducers";
 import "../styles/Card.css";
 import Window from "./Window"
+import cn from "classnames";
 
 interface AppProps {
     label: string;
@@ -38,6 +39,13 @@ const Card = ({
                   onDragEnd
               }: AppProps): JSX.Element => {
     const [isWindowOpened, openWindow] = useState(false);
+    const cardClass = cn({
+        card__pin: true,
+        Admin_System: apps[label].pinnedBy.Admin_System,
+        Admin_MRF: apps[label].pinnedBy.Admin_MRF,
+        Admin_RF: apps[label].pinnedBy.Admin_RF
+
+    })
     return (
         <div>
             {label && (
@@ -82,12 +90,7 @@ const Card = ({
                     {apps[label] &&
                     Object.values(apps[label].pinnedBy).some(el => el === true) && (
                         <span
-                            className={
-                                "card__pin " +
-                                Object.keys(apps[label].pinnedBy)
-                                    .filter(el => apps[label].pinnedBy[el as Admins] === true)
-                                    .join(" ")
-                            }
+                            className={cardClass}
                         >
               &#x1F4CC;
             </span>
