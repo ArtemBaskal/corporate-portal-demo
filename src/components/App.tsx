@@ -3,8 +3,7 @@ import {HashRouter, Route, Switch, Link} from "react-router-dom";
 import MainPage from "./MainPage";
 import Catalog from "./Catalog";
 import AccessControl from "./AccessControl";
-import Window from "./Window";
-// import history from "../history";
+import Test from "./Test";
 
 const App = (): JSX.Element => (
     <HashRouter basename="/">
@@ -12,7 +11,6 @@ const App = (): JSX.Element => (
             <Link to="/">На главную</Link>
             <Link to="/catalog">Каталог приложений</Link>
             <AccessControl/>
-            <Window/>
         </nav>
         <Switch>
             <Route path="/" exact component={MainPage}/>

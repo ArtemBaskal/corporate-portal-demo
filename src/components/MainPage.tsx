@@ -1,11 +1,10 @@
-import React, {useState} from "react";
+import React from "react";
 import {connect} from "react-redux";
 import Card from "./Card";
 import {deleteFromSelected, togglePin, handleDrag} from "../actions";
 import "../styles/Card.css";
 import {STATE, PinnedBy} from "../actions";
 import radixSort from "../helpers/radixSort";
-import Window from "./Window"
 
 interface MainPageProps {
     apps: STATE;
@@ -16,18 +15,11 @@ const MainPage = ({apps, deleteFromSelected}: MainPageProps): JSX.Element => {
     return (
         <div className="card-container">
             {radixSort(Object.values(apps) as [], "order", "ASC").map(
-                (
-                    {
-                        label,
-                        isSelected,
-                        pinnedBy
-                    }: { label?: string; isSelected?: boolean; pinnedBy?: PinnedBy },
-                    idx: number
-                ) => {
+                ({label, isSelected, pinnedBy}: { label?: string; isSelected?: boolean; pinnedBy?: PinnedBy },
+                 idx: number) => {
                     if (
                         isSelected ||
-                        Object.values(pinnedBy as PinnedBy).some(el => el === true)
-                    ) {
+                        Object.values(pinnedBy as PinnedBy).some(el => el === true)) {
                         return (
                             <Card
                                 key={label}

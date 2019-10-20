@@ -9,20 +9,32 @@ import {
 import p from "immer";
 
 const INITAL_STATE = {
-    react: {
+    yandex: {
         order: 0,
-        label: "react",
+        label: "yandex",
         isSelected: false,
         pinnedBy: {
             Admin_System: false,
             Admin_MRF: false,
+            Admin_RF: true,
+            level: 0
+        },
+        isInCatalog: true
+    },
+    react: {
+        order: 1,
+        label: "react",
+        isSelected: false,
+        pinnedBy: {
+            Admin_System: false,
+            Admin_MRF: true,
             Admin_RF: false,
             level: 0
         },
         isInCatalog: true
     },
     "vue-dot-js": {
-        order: 1,
+        order: 2,
         label: "vue-dot-js",
         isSelected: false,
         pinnedBy: {
@@ -34,34 +46,21 @@ const INITAL_STATE = {
         isInCatalog: true
     },
     angular: {
-        order: 2,
+        order: 3,
         label: "angular",
-        isSelected: true,
+        isSelected: false,
         pinnedBy: {
             Admin_System: false,
-            Admin_RF: true,
+            Admin_RF: false,
             Admin_MRF: false,
             level: 3
-        },
-        isInCatalog: true
-    },
-
-    bitcoin: {
-        order: 3,
-        label: "bitcoin",
-        isSelected: true,
-        pinnedBy: {
-            Admin_System: false,
-            Admin_MRF: false,
-            Admin_RF: false,
-            level: 0
         },
         isInCatalog: true
     },
     css3: {
         order: 4,
         label: "css3",
-        isSelected: true,
+        isSelected: false,
         pinnedBy: {
             Admin_System: false,
             Admin_MRF: false,
@@ -73,7 +72,7 @@ const INITAL_STATE = {
     docker: {
         order: 5,
         label: "docker",
-        isSelected: true,
+        isSelected: false,
         pinnedBy: {
             Admin_System: false,
             Admin_MRF: false,
@@ -99,7 +98,7 @@ const INITAL_STATE = {
         label: "electron",
         isSelected: false,
         pinnedBy: {
-            Admin_System: false,
+            Admin_System: true,
             Admin_MRF: false,
             Admin_RF: false,
             level: 0
@@ -398,7 +397,7 @@ const INITAL_STATE = {
     twitter: {
         order: 32,
         label: "twitter",
-        isSelected: false,
+        isSelected: true,
         pinnedBy: {
             Admin_System: false,
             Admin_MRF: false,
@@ -458,10 +457,10 @@ const INITAL_STATE = {
     apple: {
         order: 37,
         label: "apple",
-        isSelected: true,
+        isSelected: false,
         pinnedBy: {
             Admin_System: false,
-            Admin_MRF: true,
+            Admin_MRF: false,
             Admin_RF: false,
             level: 2
         },
@@ -470,6 +469,18 @@ const INITAL_STATE = {
     wikipedia: {
         order: 38,
         label: "wikipedia",
+        isSelected: true,
+        pinnedBy: {
+            Admin_System: false,
+            Admin_MRF: false,
+            Admin_RF: false,
+            level: 0
+        },
+        isInCatalog: true
+    },
+    bitcoin: {
+        order: 39,
+        label: "bitcoin",
         isSelected: false,
         pinnedBy: {
             Admin_System: false,
@@ -479,18 +490,6 @@ const INITAL_STATE = {
         },
         isInCatalog: true
     },
-    yandex: {
-        order: 39,
-        label: "yandex",
-        isSelected: false,
-        pinnedBy: {
-            Admin_System: false,
-            Admin_MRF: false,
-            Admin_RF: false,
-            level: 0
-        },
-        isInCatalog: true
-    }
 };
 
 export default p((state: STATE = INITAL_STATE, action: Action) => {

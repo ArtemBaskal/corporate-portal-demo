@@ -64,6 +64,7 @@ class Catalog extends React.Component<CatalogProps> {
         }
     };
 
+
     render() {
         const {
             accessRights,

@@ -1,95 +1,89 @@
-import React, {Component} from "react";
+import React, {useState} from "react";
 import cn from "classnames"
+import getCoords from "../helpers/getCoords";
+// @ts-ignore
+import {Window, TitleBar, View} from 'react-desktop/macOs';
 
-function getCoords(elem: HTMLElement) {
-    const box = elem.getBoundingClientRect();
-    return {
-        top: box.top + window.pageYOffset,
-        left: box.left + window.pageXOffset
-    };
-}
+const handleMouseDown = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    let dragElement = e.target as any;
+    let coords = getCoords(dragElement as HTMLElement);
+    let shiftX = e.pageX - coords.left;
+    let shiftY = e.pageY - coords.top;
 
-class Window extends Component {
-    state = {
-        isSmall: true,
-        isVisible: true
+    moveAt(e);
+
+    function moveAt(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
+        dragElement.style.left = e.pageX - shiftX + "px";
+        dragElement.style.top = e.pageY - shiftY + "px"
     }
-    handleMouseDown = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-        let dragElement = e.target as any;
-        let coords = getCoords(dragElement as HTMLElement);
-        let shiftX = e.pageX - coords.left;
-        let shiftY = e.pageY - coords.top;
 
-        moveAt(e);
-
-        function moveAt(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
-            dragElement.style.left = e.pageX - shiftX + "px";
-            dragElement.style.top = e.pageY - shiftY + "px"
-        }
-
-        const eventMoveAt = function (e: any) {
-            return moveAt(e);
-        };
-
-        document.addEventListener("mousemove", eventMoveAt);
-
-        dragElement!.addEventListener("mouseup", () => {
-            document.removeEventListener("mousemove", eventMoveAt!);
-            dragElement!.removeEventListener("mouseup", eventMoveAt);
-        });
-
-        dragElement!.addEventListener("dragstart", () => false);
+    const eventMoveAt = function (e: any) {
+        return moveAt(e);
     };
 
-    render() {
-        const {isSmall, isVisible} = this.state;
-        const windowClass = cn({
-            'draggable-window': isSmall && isVisible,
-            'draggable-window--large': !isSmall && isVisible,
-            'draggable-window--hidden': !isVisible,
-        });
-        return <div
-            onMouseDown={this.handleMouseDown}
-            className={windowClass}
+
+    document.addEventListener("mousemove", eventMoveAt);
+
+    dragElement.addEventListener("mouseup", () => {
+        document.removeEventListener("mousemove", eventMoveAt!);
+        dragElement.removeEventListener("mouseup", eventMoveAt);
+    });
+
+    dragElement.addEventListener("dragstart", () => false);
+};
+
+const WindowWrapper = ({coords, setCoords, isWindowOpened, toggleOpen, title, content}: any) => {
+    const [isSmall, toggleSmall] = useState(true);
+    const [isMinimized, toggleMinimized] = useState(true);
+    const [isFullscreen, toggleFullscreen] = useState(false);
+    const [size, setSize] = useState({width: '50vw', height: '50vh'});
+    const windowClass = cn({
+        'draggable-window': isSmall && isMinimized,
+        'draggable-window--large': !isSmall && isMinimized,
+        'draggable-window--hidden': !isMinimized,
+    });
+
+    const handleClose = (e: any) => {
+        toggleOpen(!isWindowOpened);
+        const display = isWindowOpened ? "block" : "none";
+        (e.target as any).parentElement.parentElement.parentElement.style.display = display;
+    }
+
+    const handleMinimize = () => toggleMinimized(!isMinimized);
+
+    const handleResize = () => {
+        setCoords({x: 0, y: 0});
+        toggleFullscreen(!isFullscreen);
+        isFullscreen
+            ? setSize({width: '50vw', height: '50vh'})
+            : setSize({width: '100vw', height: '100vh'});
+        toggleMinimized(true);
+        toggleSmall(!isSmall);
+    }
+
+    return <div
+        onMouseDown={handleMouseDown}
+        className={windowClass}
+        style={{top: coords.y, left: coords.x}}
+    >
+        <Window
+            // chrome
+            padding="10px"
+            isFullscreen={isFullscreen}
+            {...size}
+            style={{}}
+            onMouseDown={handleMouseDown}
         >
-                    <span
-                        role="icon"
-                        className="draggable-window__controls">
-                        <svg width="10" height="10">
-                            <image
-                                className="card__img"
-                                href={`${process.env.PUBLIC_URL}/SVG/icon-cross.svg`}
-                                // @ts-ignore
-                                onClick={(e: Event) => e.target.parentElement.parentElement.parentElement.style.display = "none"}
-                            />
-                    </svg>
-                    </span>
-            <span
-                role="icon"
-                className="draggable-window__controls">
-                        <svg width="10" height="10">
-                             <image
-                                 className="card__img"
-                                 href={`${process.env.PUBLIC_URL}/SVG/icon-rollup.svg`}
-                                 onClick={() => this.setState({isVisible: !this.state.isVisible})}
-                             />
-                    </svg>
-                    </span>
-            <span
-                role="icon"
-                className="draggable-window__controls">
-                        <svg width="10" height="10">
-                            <image
-                                className="card__img"
-                                href={`${process.env.PUBLIC_URL}/SVG/icon-window.svg`}
-                                onClick={() => this.setState({isSmall: !this.state.isSmall, isVisible: true})}
-                            />
-                    </svg>
-                    </span>
-            <br/>
-            Initial test vanilla draggable window
-        </div>;
-    }
+            <TitleBar title={title} controls
+                      onCloseClick={handleClose}
+                      onMinimizeClick={handleMinimize}
+                      onResizeClick={handleResize}
+                      isFullscreen={isFullscreen}
+            />
+            {content}
+            {/*<Text>Hello World</Text>*/}
+        </Window>
+    </div>
 }
 
-export default Window;
+export default WindowWrapper;

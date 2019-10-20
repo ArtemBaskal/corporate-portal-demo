@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 import {AccessRights, STATE, Admins, Users} from "../actions";
 import {StoreState} from "../reducers";
 import "../styles/Card.css";
-import Window from "./Window"
+import WindowWrapper from "./Window"
 import cn from "classnames";
 
 interface AppProps {
@@ -38,7 +38,8 @@ const Card = ({
                   onDragOver,
                   onDragEnd
               }: AppProps): JSX.Element => {
-    const [isWindowOpened, openWindow] = useState(false);
+    const [isWindowOpened, toggleOpen] = useState(false);
+    const [coords, setCoords] = useState({x: 0, y: 0});
     const cardClass = cn({
         card__pin: true,
         Admin_System: apps[label].pinnedBy.Admin_System,
@@ -48,8 +49,28 @@ const Card = ({
     })
     return (
         <div>
+            {isWindowOpened &&
+            <WindowWrapper
+                isWindowOpened={isWindowOpened}
+                toggleOpen={toggleOpen}
+                coords={coords}
+                setCoords={setCoords}
+                title={label}
+                content={
+                    <svg width="100" height="100">
+                        <image
+                            className="card__img"
+                            href={`${process.env.PUBLIC_URL}/SVG/${label}.svg`}
+                        />
+                    </svg>}
+            />
+            }
+
             {label && (
-                <div onClick={handleSelect} onMouseDown={() => !isCatalog && openWindow(true)}
+                <div onClick={handleSelect} onMouseDown={(e) => {
+                    setCoords({x: e.clientX, y: e.clientY})
+                    !isCatalog && toggleOpen(true)
+                }}
                      className="card">
                     <svg width="100" height="100">
                         <image
@@ -58,13 +79,13 @@ const Card = ({
                         />
                     </svg>
 
-                    {accessRights.status &&
+                    {/* {accessRights.status &&
                     accessRights.status.slice(0, 5) === "Admin" &&
                     !isCatalog && (
                         <span onClick={handleDelete} className="card__cross">
               &#10060;
             </span>
-                    )}
+                    )}*/}
 
                     {apps[label] && apps[label].isSelected && (
                         <span className="card__check">&#10003;</span>
@@ -76,7 +97,7 @@ const Card = ({
                         <Fragment>
               <span className="card__basketwaste" onClick={handleDelete}>
                 &#x2612;
-              </span>
+                 </span>
                             <img
                                 className="card__drag"
                                 src={`${process.env.PUBLIC_URL}/drag-and-drop.png`}
@@ -98,7 +119,6 @@ const Card = ({
                     <h1 className="card__title">
                         {label[0].toUpperCase() + label.slice(1)}
                     </h1>
-                    {/*{isWindowOpened && <Window/>}*/}
                 </div>
             )}
         </div>

@@ -208,40 +208,19 @@ body {
 }
 
 .access-control__select {
-    /* align-c: flex-end; */
-    /* align-self: center; */
-    /* justify-self: flex-end; */
     margin-left: auto;
     margin-right: 10rem;
-    /* background-color: red; */
 }
 
 .draggable-window {
     position: absolute;
-    /*display: flex;*/
-    /*flex-direction: column;*/
-    /*right: 62.5%;*/
-    /*top: 62.5%;*/
     font-size: 1.6rem;
     padding: 1rem;
     margin: 0rem;
-    width: 15rem;
-    height: 15rem;
+    width: 52vw;
+    height: 53vh;
     background-color: rgba(0, 0, 0, 0.09);
     z-index: 100;
-}
-.draggable-window__controls-container{
-    /*display: flex;*/
-}
-
-.draggable-window__controls {
-    /* test */
-    /*position: absolute;*/
-    /*float: right;*/
-    padding-right: 1rem;
-    z-index: 200;
-
-    /*right: 2rem;*/
 }
 
 .draggable-window--large{
@@ -250,20 +229,21 @@ body {
     font-size: 1.6rem;
     padding: 1rem;
     margin: 0rem;
-    width: 35rem;
-    height: 35rem;
+    left: 0;
+    top: 0;
+    width: 102vw;
+    height: 103vh;
     background-color: rgba(0, 0, 0, 0.09);
     z-index: 100;
 }
 .draggable-window--hidden{
     overflow: hidden;
     position: absolute;
-    right: 1rem;
     font-size: 1.6rem;
     padding: 1rem;
     margin: 0rem;
-    width: 15rem;
-    height: 4rem;
+    width: 52vw;
+    height: 3.2rem;
     background-color: rgba(0, 0, 0, 0.09);
     z-index: 100;
 }
